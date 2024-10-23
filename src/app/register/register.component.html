@@ -4,13 +4,13 @@
   <div class="alert alert-danger text-center" *ngIf="errorMessage != ''">
     {{errorMessage}}
   </div>
-  <form *ngIf="errorMessage === ''" (ngSubmit)="onSubmit()" #registerForm="ngForm" class="border rounded p-4">
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="border rounded p-4">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
       <input type="text" #username="ngModel" id="username" name="username" class="form-control" [(ngModel)]="registerData.username" required />
       <div *ngIf="username.invalid && (username.touched || username.dirty)">
         <div class="text-danger" *ngIf="username.errors?.['required']">Frist Name is required.</div>
-    </div>
+      </div>
     </div>
   
     <div class="mb-3">
@@ -24,7 +24,7 @@
   
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
-      <input type="password" id="password" name="password" class="form-control" [(ngModel)]="registerData.password" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" #password="ngModel" />
+      <input type="password" id="password" name="password" class="form-control" [(ngModel)]="registerData.password" required minlength="8" pattern="^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':&quot;|,.&lt;&gt;/?\\]+$" #password="ngModel" />
       <div *ngIf="password.invalid && (password.touched || password.dirty)">
         <div class="text-danger" *ngIf="password.errors?.['required']">Password is required.</div>
         <div class="text-danger" *ngIf="password.errors?.['minlength']">Password must be at least 8 characters long.</div>

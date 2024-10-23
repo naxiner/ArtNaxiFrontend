@@ -34,7 +34,14 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error(err);
-        this.errorMessage = `Error: ${err.error}`;
+        if (err.error.errors) {
+          const validationErrors = err.error.errors;
+          if (validationErrors.Password) {
+            this.errorMessage = validationErrors.Password.join(', ');
+          }
+        } else {
+          this.errorMessage = `Error: ${err.error}`;
+        }
       }
     });
   }
