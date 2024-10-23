@@ -34,7 +34,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error(err);
-        this.errorMessage = `Error: ${err.status}`;
+        this.errorMessage = `Error: ${err.error}`;
       }
     });
   }
