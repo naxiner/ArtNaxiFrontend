@@ -28,10 +28,7 @@ export class LoginComponent {
   onSubmit(): void {
     this.authService.loginUser(this.loginData).subscribe({
       next: (response) => {
-        console.log(response);
-        if (response.token) {
-          this.authService.setToken(response.token);
-        }
+        this.authService.handleAuthentication(response);
         this.router.navigate(['/']);
       },
       error: (err) => {
