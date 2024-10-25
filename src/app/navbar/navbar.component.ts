@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated: boolean = false;
+  userId: string | null = null;
   username: string | null = null;
 
   constructor(private authService: AuthService) {}
@@ -20,6 +21,7 @@ export class NavbarComponent implements OnInit {
       this.authService.isAuthenticated$.subscribe((authStatus: boolean) => {
         this.isAuthenticated = authStatus;
         if (authStatus) {
+          this.userId = this.authService.getUserIdFromToken();
           this.username = this.authService.getUserNameFromToken();
         }
       });
