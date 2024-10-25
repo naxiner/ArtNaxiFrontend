@@ -60,6 +60,16 @@ export class AuthService {
     return null;
   }
 
+  getUserIdFromToken(): string | null {
+    const token = this.getToken();
+    if (token) {
+      debugger
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken?.nameid || null;
+    }
+    return null;
+  }
+
   logout(): void {
     localStorage.removeItem('authToken');
     localStorage.removeItem('username');
