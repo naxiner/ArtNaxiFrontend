@@ -31,7 +31,6 @@ export class UserProfileComponent implements OnInit{
   loadUserProfile(id: string): void {
     this.userProfileService.getUserProfile(id).subscribe(
       (data) => {
-        debugger;
         this.user = data;
       },
       (error) => {
