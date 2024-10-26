@@ -1,0 +1,66 @@
+<h2 class="text-center my-5">Create image</h2>
+
+<div class="w-50 mb-5 mx-auto">
+  <form (ngSubmit)="onSubmit()" #createForm="ngForm" class="border rounded p-4">
+        <div class="mb-3">
+            <label for="promptTextarea" class="form-label">Prompt</label>
+            <textarea class="form-control" [(ngModel)]="sdRequest.prompt" name="prompt" id="promptTextarea" rows="2"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="negativePromptTextarea" class="form-label">Negative Prompt</label>
+            <textarea class="form-control" [(ngModel)]="sdRequest.negative_prompt" name="negativePrompt" id="negativePromptTextarea" rows="1"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="styleSelect" class="form-label">Select Style</label>
+            <select id="styleSelect" [(ngModel)]="sdRequest.styles" name="styles" class="form-select">
+                <option *ngFor="let style of styles" [value]="style">{{ style }}</option>
+            </select>
+        </div>
+        
+        <div class="mb-3 row">
+            <div class="col">
+                <label for="width" class="form-label">Width</label>
+                <input type="number" class="form-control" [(ngModel)]="sdRequest.width" name="width" id="width" placeholder="Enter width">
+            </div>
+            <div class="col">
+                <label for="height" class="form-label">Height</label>
+                <input type="number" class="form-control" [(ngModel)]="sdRequest.height" name="height" id="height" placeholder="Enter height">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="col">
+                <label for="steps" class="form-label">Steps</label>
+                <input type="number" class="form-control" [(ngModel)]="sdRequest.steps" name="steps" id="steps" placeholder="Enter steps">
+            </div>
+            <div class="col">
+                <label for="cfgScale" class="form-label">CFG Scale</label>
+                <input type="number" class="form-control" [(ngModel)]="sdRequest.cfg_scale" name="cfgScale" id="cfgScale" placeholder="Enter CFG">
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="samplerSelect" class="form-label">Select Sampler</label>
+            <select id="samplerSelect" [(ngModel)]="sdRequest.sampler_name" name="samplerName" class="form-select">
+                <option value="DPM++ SDE">DPM++ SDE</option>
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="schedulerSelect" class="form-label">Select Scheduler</label>
+            <select id="schedulerSelect" [(ngModel)]="sdRequest.scheduler" name="scheduler" class="form-select">
+                <option value="Karras">Karras</option>
+            </select>
+        </div>
+
+        <div class="d-grid mx-auto">
+            <button type="submit" class="btn btn-primary">Generate</button>
+        </div>
+    </form>
+
+    <div *ngIf="generatedImageUrl">
+        <img [src]="baseUrl + generatedImageUrl" alt="Generated Image" style="max-width: 100%; height: auto;" />
+    </div>
+</div>
