@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ImageGeneratorService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/image`;
 
   constructor(private http: HttpClient) { }
 
@@ -17,6 +17,13 @@ export class ImageGeneratorService {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
-    return this.http.post<SDResponse>(`${this.apiUrl}/image`, request, { headers });
-  } 
+    return this.http.post<SDResponse>(this.apiUrl, request, { headers });
+  }
+
+  deleteImage(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers });
+  }
 }

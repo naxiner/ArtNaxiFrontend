@@ -3,6 +3,7 @@ import { UserProfileService } from '../user-profile.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
+import { ImageGeneratorService } from '../image-generator.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -18,6 +19,7 @@ export class UserProfileComponent implements OnInit{
 
   constructor (
     private userProfileService: UserProfileService,
+    private imageGeneratorService: ImageGeneratorService,
     private route: ActivatedRoute
   ) { }
 
@@ -37,5 +39,16 @@ export class UserProfileComponent implements OnInit{
         console.error('Error loading user profile', error);
       }
     );
+  }
+
+  deleteImage(id: string): void {
+    this.imageGeneratorService.deleteImage(id).subscribe(
+      () => {
+        this.user.images = this.user.images.filter((img: any) => img.id !== id);
+      },
+      (error) => {
+        console.error('Error deleting image', error)
+      }
+    )
   }
 }
