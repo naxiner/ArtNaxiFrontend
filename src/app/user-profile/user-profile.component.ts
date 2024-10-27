@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { ImageGeneratorService } from '../image-generator.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,8 +17,11 @@ export class UserProfileComponent implements OnInit{
   baseUrl = environment.baseUrl;
   user: any;
   userId: string = '';
+  currentUserRole: string = '';
+  isAllowToDelete = false;
 
   constructor (
+    private authService: AuthService,
     private userProfileService: UserProfileService,
     private imageGeneratorService: ImageGeneratorService,
     private route: ActivatedRoute
@@ -26,6 +30,13 @@ export class UserProfileComponent implements OnInit{
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id') ?? '';
+      this.currentUserRole = this.authService.getUserRoleFromToken() ?? 'User';
+      const currentUserId = this.authService.getUserIdFromToken() ?? '';
+
+      if (this.userId == currentUserId || this.currentUserRole == 'Admin') {
+        this.isAllowToDelete = true;
+      }
+      
       this.loadUserProfile(this.userId);
     });
   }

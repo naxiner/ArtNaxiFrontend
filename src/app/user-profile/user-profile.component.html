@@ -8,7 +8,7 @@
             <div class="row g-1 w-75 mx-auto">
                 <div *ngFor="let image of user?.images; let i = index" class="col-md-4">
                     <img [src]="baseUrl + image.url" alt="User image" class="img-fluid w-100">
-                    <button class="btn btn-danger" (click)="deleteImage(image.id)">
+                    <button *ngIf="isAllowToDelete" class="btn btn-danger" (click)="deleteImage(image.id)">
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>
