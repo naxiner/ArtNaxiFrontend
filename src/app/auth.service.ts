@@ -69,6 +69,15 @@ export class AuthService {
     return null;
   }
 
+  getUserRoleFromToken(): string | null {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken?.role || null;
+    }
+    return null;
+  }
+
   logout(): void {
     localStorage.removeItem('authToken');
     localStorage.removeItem('username');
