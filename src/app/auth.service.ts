@@ -35,7 +35,12 @@ export class AuthService {
   }
 
   loginUser(data: LoginDTO): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, data);
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, data, { withCredentials: true }).pipe(
+      switchMap((response: AuthResponse) => {
+        this.handleAuthentication(response);
+        return of(response);
+      })
+    );
   }
 
   setToken(token: string): void {
@@ -45,6 +50,15 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('authToken');
+  }
+
+  refreshToken(): Observable<string> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/refresh-token`, {}, { withCredentials: true }).pipe(
+      switchMap((response: AuthResponse) => {
+        this.setToken(response.token);
+        return of(response.token);
+      })
+    );
   }
 
   setUsername(username: string): void {
@@ -82,6 +96,7 @@ export class AuthService {
     localStorage.removeItem('authToken');
     localStorage.removeItem('username');
     this.isAuthenticatedSubject.next(false);
+    this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true }).subscribe();
   }
 
   handleAuthentication(response: AuthResponse): void {
