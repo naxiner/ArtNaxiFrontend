@@ -16,20 +16,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return next(authReq).pipe(
       catchError((error) => {
         if (error.status === 401) {
-          // Запитуємо оновлення токену
           return authService.refreshToken().pipe(
             switchMap((newToken) => {
-              // Якщо токен оновлено, повторно виконуємо запит із новим токеном
               const newAuthReq = req.clone({
                 setHeaders: { Authorization: `Bearer ${newToken}` },
               });
               return next(newAuthReq);
             }),
-            // Якщо оновлення токену не вдалося, повертаємо оригінальну помилку
             catchError(() => of(error))
           );
         }
-        // Якщо помилка не 401, повертаємо її без змін
         return of(error);
       })
     );
