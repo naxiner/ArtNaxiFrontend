@@ -56,7 +56,10 @@
         </div>
 
         <div class="d-grid mx-auto">
-            <button type="submit" class="btn btn-primary">Generate</button>
+            <button [disabled]="isGenerating" type="submit" class="btn btn-primary">
+                <div *ngIf="isGenerating" class="spinner-border spinner-border-sm" role="status"></div>
+                {{ isGenerating ? 'Generating...' : 'Generate' }}
+            </button>
         </div>
     </form>
 

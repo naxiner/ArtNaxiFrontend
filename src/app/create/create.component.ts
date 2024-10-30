@@ -13,8 +13,6 @@ import { environment } from '../../environments/environment';
   styleUrl: './create.component.css'
 })
 export class CreateComponent {
-  baseUrl = environment.baseUrl;
-
   sdRequest: SDRequest = {
     prompt: '',
     negative_prompt: '',
@@ -30,10 +28,15 @@ export class CreateComponent {
   styles: string[] = ['Negative'];
 
   generatedImageUrl: string | null = null;
+  isGenerating: boolean = false;
+
+  baseUrl = environment.baseUrl;
 
   constructor(private sdService: ImageGeneratorService) {}
 
   onSubmit(): void {
+    this.isGenerating = true;
+
     this.sdRequest.styles = this.sdRequest.styles || [];
     if (!Array.isArray(this.sdRequest.styles)) {
       this.sdRequest.styles = [this.sdRequest.styles];
@@ -46,6 +49,10 @@ export class CreateComponent {
       },
       error: (err) => {
         console.log(err.error);
+      },
+      complete: () => {
+        this.isGenerating = false;
+        
       }
     })
   }
