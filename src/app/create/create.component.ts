@@ -56,4 +56,10 @@ export class CreateComponent {
       }
     })
   }
+
+  reverseResolution() {
+    const temp = this.sdRequest.width;
+    this.sdRequest.width = this.sdRequest.height;
+    this.sdRequest.height = temp;
+  }
 }
