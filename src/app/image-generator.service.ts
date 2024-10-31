@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SDRequest } from '../models/sd-request';
 import { SDResponse } from '../models/sd-response';
 import { Observable } from 'rxjs';
+import { Image } from '../models/image';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,10 @@ export class ImageGeneratorService {
   private apiUrl = `${environment.apiUrl}/image`;
 
   constructor(private http: HttpClient) { }
+
+  getAllImages(): Observable<Image[]> {
+    return this.http.get<Image[]>(this.apiUrl);
+  }
 
   generateImage(request: SDRequest): Observable<SDResponse> {
     const token = localStorage.getItem('authToken');

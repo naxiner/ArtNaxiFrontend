@@ -52,7 +52,6 @@ export class CreateComponent {
       },
       complete: () => {
         this.isGenerating = false;
-        
       }
     })
   }
