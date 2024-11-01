@@ -13,7 +13,9 @@ import { environment } from '../../environments/environment';
 })
 export class HomeComponent implements OnInit {
   generatedImages: Image[] = [];
+  columns: any[][] = [];
   baseUrl = environment.baseUrl;
+  numberOfColumns = 5;
 
   constructor (
     private sdService: ImageGeneratorService,
@@ -22,12 +24,35 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.sdService.getRecentImages(20).subscribe({
       next: (response) => {
-        console.log(response);
         this.generatedImages = response;
+        this.organizeImages();
       },
       error: (err) => {
         console.log(err.error);
       }
     })
+  }
+  
+  organizeImages() {
+    this.columns = Array.from({ length: this.numberOfColumns }, () => []);
+    const columnHeights = Array(this.numberOfColumns).fill(0);
+
+    for (const image of this.generatedImages) {
+        const imageHeight = this.getImageHeight(image);
+        const shortestColumnIndex = columnHeights.indexOf(Math.min(...columnHeights));
+
+        console.log(shortestColumnIndex);
+        this.columns[shortestColumnIndex].push(image);
+        columnHeights[shortestColumnIndex] += imageHeight;
+    }
+  }
+
+  getImageHeight(image: Image): number {
+    const originalWidth = image.request.width;
+    const originalHeight = image.request.height;
+
+    const scaleFactor = 1 / originalWidth;
+    
+    return originalHeight * scaleFactor;
   }
 }

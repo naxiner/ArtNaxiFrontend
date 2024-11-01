@@ -19,9 +19,13 @@
     <div class="mb-3">
         <div class="mt-4">
             <p class="mb-3 fs-5 fw-semibold">Recent</p>
-            <div class="row row-cols-3 row-cols-lg-6 g-2 g-lg-2">
-                <div class="col" *ngFor="let image of generatedImages">
-                    <img [src]="baseUrl + image.url" class="img-fluid rounded-4" alt="Generated Image" />
+            <div class="container">
+                <div class="row">
+                    <div class="col" *ngFor="let column of columns">
+                        <div *ngFor="let image of column">
+                            <img [src]="baseUrl + image.url" class="img-fluid rounded-4 mb-3" alt="Generated Image" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

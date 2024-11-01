@@ -5,5 +5,5 @@ export interface Image {
     url: string,
     creationTime: Date,
     userId: string,
-    sdReques: SDRequest
+    request: SDRequest
 }
