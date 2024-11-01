@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { ImageGeneratorService } from '../image-generator.service';
 import { AuthService } from '../auth.service';
+import { Image } from '../../models/image';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,6 +20,7 @@ export class UserProfileComponent implements OnInit{
   userId: string = '';
   currentUserRole: string = '';
   isAllowToDelete = false;
+  userImages: Image[] = [];
 
   constructor (
     private authService: AuthService,
@@ -36,6 +38,16 @@ export class UserProfileComponent implements OnInit{
       if (this.userId == currentUserId || this.currentUserRole == 'Admin') {
         this.isAllowToDelete = true;
       }
+
+      const pageNumber = 1, pageSize = 10;
+      this.imageGeneratorService.getImagesByUserId(this.userId, pageNumber, pageSize).subscribe(
+        (images: Image[]) => {
+          this.userImages = images;
+        },
+        (error) => {
+          console.error('Error loading user images', error);
+        }
+      );
       
       this.loadUserProfile(this.userId);
     });
@@ -55,7 +67,7 @@ export class UserProfileComponent implements OnInit{
   deleteImage(id: string): void {
     this.imageGeneratorService.deleteImage(id).subscribe(
       () => {
-        this.user.images = this.user.images.filter((img: any) => img.id !== id);
+        this.userImages = this.userImages.filter((img: any) => img.id !== id);
       },
       (error) => {
         console.error('Error deleting image', error)
