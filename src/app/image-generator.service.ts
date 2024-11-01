@@ -14,8 +14,16 @@ export class ImageGeneratorService {
 
   constructor(private http: HttpClient) { }
 
-  getAllImages(): Observable<Image[]> {
-    return this.http.get<Image[]>(this.apiUrl);
+  getAllImages(pageNumber: number, pageSize: number): Observable<Image[]> {
+    return this.http.get<Image[]>(`${this.apiUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  }
+
+  getRecentImages(count: number): Observable<Image[]> {
+    return this.http.get<Image[]>(`${this.apiUrl}/recent?count=${count}`)
+  }
+
+  getImagesByUserId(userId: string, pageNumber: number, pageSize: number): Observable<Image[]> {
+    return this.http.get<Image[]>(`${this.apiUrl}/user/${userId}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
   generateImage(request: SDRequest): Observable<SDResponse> {
