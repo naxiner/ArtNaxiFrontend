@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.sdService.getAllImages().subscribe({
+    this.sdService.getRecentImages(20).subscribe({
       next: (response) => {
         console.log(response);
         this.generatedImages = response;
