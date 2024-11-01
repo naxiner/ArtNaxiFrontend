@@ -4,15 +4,35 @@
         <img *ngIf="user?.profilePictureUrl" [src]="user.profilePictureUrl" alt="Profile Picture" class="profile-pic">
     
         <h3 class="text-center mb-4">Image collection</h3>
-        <div class="image-gallery mb-3">
-            <div class="row g-1 w-75 mx-auto">
-                <div *ngFor="let image of userImages; let i = index" class="col-md-4">
-                    <img [src]="baseUrl + image.url" alt="User image" class="img-fluid w-100">
+        <div class="mb-5">
+            <div class="row row-cols-3 row-cols-lg-6 g-2 g-lg-2">
+                <div *ngFor="let image of userImages; let i = index">
+                    <img [src]="baseUrl + image.url" alt="User image" class="img-fluid rounded-4">
                     <button *ngIf="isAllowToDelete" class="btn btn-danger" (click)="deleteImage(image.id)">
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>
             </div>
+        </div>
+        <div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" [class.disabled]="pageNumber === 1">
+                        <a class="page-link" type="button" (click)="goToPreviousPage()" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" 
+                          [class.active]="pageNumber === i + 1">
+                        <a class="page-link" type="button" (click)="pageNumber = i + 1; loadUserImages()">{{ i + 1 }}</a>
+                      </li>
+                      <li class="page-item" [class.disabled]="pageNumber === totalPages">
+                        <a class="page-link" type="button" (click)="goToNextPage()" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                </ul>
+            </nav>
         </div>
     </div>
     <div *ngIf="!user">

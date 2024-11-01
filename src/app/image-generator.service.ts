@@ -22,9 +22,11 @@ export class ImageGeneratorService {
     return this.http.get<Image[]>(`${this.apiUrl}/recent?count=${count}`)
   }
 
-  getImagesByUserId(userId: string, pageNumber: number, pageSize: number): Observable<Image[]> {
-    return this.http.get<Image[]>(`${this.apiUrl}/user/${userId}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
-  }
+  getImagesByUserId(userId: string, pageNumber: number, pageSize: number) {
+    return this.http.get<{ userImages: Image[], totalPages: number }>(
+        `${this.apiUrl}/user/${userId}?pageNumber=${pageNumber}&pageSize=${pageSize}`
+    );
+}
 
   generateImage(request: SDRequest): Observable<SDResponse> {
     const token = localStorage.getItem('authToken');

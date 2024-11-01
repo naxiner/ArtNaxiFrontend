@@ -22,6 +22,10 @@ export class UserProfileComponent implements OnInit{
   isAllowToDelete = false;
   userImages: Image[] = [];
 
+  pageNumber = 1;
+  pageSize = 12;
+  totalPages = 1;
+
   constructor (
     private authService: AuthService,
     private userProfileService: UserProfileService,
@@ -39,19 +43,22 @@ export class UserProfileComponent implements OnInit{
         this.isAllowToDelete = true;
       }
 
-      const pageNumber = 1, pageSize = 10;
-      this.imageGeneratorService.getImagesByUserId(this.userId, pageNumber, pageSize).subscribe(
-        (images: Image[]) => {
-          this.userImages = images;
-        },
-        (error) => {
-          console.error('Error loading user images', error);
-        }
-      );
-      
+      this.loadUserImages();
       this.loadUserProfile(this.userId);
     });
   }
+
+  loadUserImages(): void {
+    this.imageGeneratorService.getImagesByUserId(this.userId, this.pageNumber, this.pageSize).subscribe(
+      (response: { userImages: Image[], totalPages: number }) => {
+        this.userImages = response.userImages;
+        this.totalPages = response.totalPages;
+      },
+      (error) => {
+        console.error('Error loading user images', error);
+      }
+    );
+}
 
   loadUserProfile(id: string): void {
     this.userProfileService.getUserProfile(id).subscribe(
@@ -73,5 +80,19 @@ export class UserProfileComponent implements OnInit{
         console.error('Error deleting image', error)
       }
     )
+  }
+
+  goToPreviousPage(): void {
+    if (this.pageNumber > 1) {
+      this.pageNumber--;
+      this.loadUserImages();
+    }
+  }
+
+  goToNextPage(): void {
+    if (this.pageNumber < this.totalPages) {
+      this.pageNumber++;
+      this.loadUserImages();
+    }
   }
 }
