@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col" *ngFor="let column of columns">
                         <div *ngFor="let image of column">
-                            <img [src]="baseUrl + image.url" class="img-fluid rounded-4 mb-3" alt="Generated Image" />
+                            <img [src]="baseUrl + image.url" class="img-fluid rounded-4 mb-3" (click)="showImageModal(image)" style="cursor: pointer;" alt="Generated Image" />
                         </div>
                     </div>
                 </div>

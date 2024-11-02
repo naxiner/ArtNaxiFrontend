@@ -3,6 +3,7 @@ import { ImageGeneratorService } from '../image-generator.service';
 import { Image } from '../../models/image';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   constructor (
     private sdService: ImageGeneratorService,
+    private modalService: ModalService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +43,6 @@ export class HomeComponent implements OnInit {
         const imageHeight = this.getImageHeight(image);
         const shortestColumnIndex = columnHeights.indexOf(Math.min(...columnHeights));
 
-        console.log(shortestColumnIndex);
         this.columns[shortestColumnIndex].push(image);
         columnHeights[shortestColumnIndex] += imageHeight;
     }
@@ -54,5 +55,9 @@ export class HomeComponent implements OnInit {
     const scaleFactor = 1 / originalWidth;
     
     return originalHeight * scaleFactor;
+  }
+
+  showImageModal(image: Image) {
+    this.modalService.openModal(image);
   }
 }
