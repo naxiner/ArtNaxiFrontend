@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ImageGeneratorService } from '../image-generator.service';
 import { Image } from '../../models/image';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
   columns: any[][] = [];
   baseUrl = environment.baseUrl;
   numberOfColumns = 5;
+  imagesPerPage = 20;
+  currentImagesPage = 1;
+  isLoadingImages = false;
 
   constructor (
     private sdService: ImageGeneratorService,
@@ -24,17 +27,27 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.sdService.getRecentImages(20).subscribe({
+    this.loadImages();
+  }
+  
+  loadImages(): void {
+    if (this.isLoadingImages) return;
+    this.isLoadingImages = true;
+
+    this.sdService.getRecentImages(this.currentImagesPage, this.imagesPerPage).subscribe({
       next: (response) => {
-        this.generatedImages = response;
+        this.generatedImages.push(...response);
         this.organizeImages();
+        this.currentImagesPage++;
+        this.isLoadingImages = false;
       },
       error: (err) => {
         console.log(err.error);
+        this.isLoadingImages = false;
       }
-    })
+    });
   }
-  
+
   organizeImages() {
     this.columns = Array.from({ length: this.numberOfColumns }, () => []);
     const columnHeights = Array(this.numberOfColumns).fill(0);
@@ -59,5 +72,12 @@ export class HomeComponent implements OnInit {
 
   showImageModal(image: Image) {
     this.modalService.openModal(image);
+  }
+
+  @HostListener('window:scroll', [])
+  onScroll() {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      this.loadImages();
+    }
   }
 }
