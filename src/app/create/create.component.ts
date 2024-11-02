@@ -4,6 +4,7 @@ import { ImageGeneratorService } from '../image-generator.service';
 import { SDRequest } from '../../models/sd-request';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -32,7 +33,13 @@ export class CreateComponent {
 
   baseUrl = environment.baseUrl;
 
-  constructor(private sdService: ImageGeneratorService) {}
+  constructor(private sdService: ImageGeneratorService, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.sdRequest.prompt = params['prompt'] || '';
+    });
+  }
 
   onSubmit(): void {
     this.isGenerating = true;

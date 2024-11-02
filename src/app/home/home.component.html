@@ -10,8 +10,8 @@
             </div>
             <div>
                 <div class="input-group mb-3" style="max-width: 300px; margin: 0 auto;">
-                    <input type="text" class="form-control" placeholder="Describe your image">
-                    <button class="btn btn-secondary" type="button">Generate</button>
+                    <input type="text" class="form-control" [(ngModel)]="inputGenerateText" placeholder="Describe your image">
+                    <button class="btn btn-secondary" type="button" (click)="onGenerateClick()">Generate</button>
                 </div>
             </div>
         </div>

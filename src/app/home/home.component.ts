@@ -4,11 +4,14 @@ import { Image } from '../../models/image';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { ModalService } from '../modal.service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -20,16 +23,27 @@ export class HomeComponent implements OnInit {
   imagesPerPage = 20;
   currentImagesPage = 1;
   isLoadingImages = false;
+  inputGenerateText: string = '';
 
   constructor (
     private sdService: ImageGeneratorService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.loadImages();
   }
   
+  onGenerateClick(): void {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['create'], { queryParams: { prompt: this.inputGenerateText } });
+    } else {
+      this.router.navigate(['user/register']);
+    }
+  }
+
   loadImages(): void {
     if (this.isLoadingImages) return;
     this.isLoadingImages = true;
@@ -48,7 +62,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  organizeImages() {
+  organizeImages(): void {
     this.columns = Array.from({ length: this.numberOfColumns }, () => []);
     const columnHeights = Array(this.numberOfColumns).fill(0);
 
@@ -75,7 +89,7 @@ export class HomeComponent implements OnInit {
   }
 
   @HostListener('window:scroll', [])
-  onScroll() {
+  onScroll(): void {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
       this.loadImages();
     }
