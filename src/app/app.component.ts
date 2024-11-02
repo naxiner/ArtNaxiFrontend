@@ -1,17 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./navbar/navbar.component";
-import { AuthService } from './auth.service';
+import { CommonModule } from '@angular/common';
+import { ImageModalComponent } from "./image-modal/image-modal.component";
+import { ModalService } from './modal.service';
+import { environment } from '../environments/environment';
+import { Image } from '../models/image';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, CommonModule, ImageModalComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {}
-
+  constructor(private modalService: ModalService) {}
+  
+  @ViewChild(ImageModalComponent) imageModal!: ImageModalComponent;
+  baseUrl = environment.baseUrl;
+  image: Image | null = null;
   title = 'ArtNaxiFrontend';
+
+  ngOnInit() {
+    this.modalService.registerShowModalCallback((image) => this.openModal(image));
+  }
+
+  openModal(image: Image) {
+    this.imageModal.image = image;
+    this.imageModal.show();
+  }
 }

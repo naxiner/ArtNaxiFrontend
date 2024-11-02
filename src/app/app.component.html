@@ -1,4 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <router-outlet />
+    <img *ngIf="image" [src]="baseUrl + image.url" class="img-fluid rounded-4 mb-3" alt="Generated Image" (click)="openModal(image)" style="cursor: pointer;" />
+
+    <image-modal></image-modal>
+    <router-outlet></router-outlet>
 </div>
