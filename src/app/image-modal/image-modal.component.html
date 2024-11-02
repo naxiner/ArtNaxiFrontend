@@ -1,0 +1,68 @@
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-end">
+                    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+                </div>
+                <div class="row ">
+                    <div class="col">
+                        <img [src]="baseUrl + image?.url" class="img-fluid rounded-3" alt="Generated image">
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Prompt</label>
+                            <input disabled class="form-control border border-dark-subtle" [value]="image?.request?.prompt">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Negative</label>
+                            <input disabled class="form-control border border-dark-subtle" [value]="image?.request?.negative_prompt">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Styles</label>
+                            <input disabled class="form-control border border-dark-subtle" [value]="image?.request?.styles">
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col input-group">
+                                <span class="input-group-text bg-body-secondary">Sampler</span>
+                                <input disabled class="form-control border border-dark-subtle" [value]="image?.request?.sampler_name">
+                            </div>
+
+                            <div class="col input-group">
+                                <span class="input-group-text bg-body-secondary">Scheduler</span>
+                                <input disabled class="form-control border border-dark-subtle" [value]="image?.request?.scheduler">
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col input-group">
+                                <span class="input-group-text bg-body-secondary">Width</span>
+                                <input disabled class="form-control border border-dark-subtle" [value]="image?.request?.width">
+                            </div>
+
+                            <div class="col input-group">
+                                <span class="input-group-text bg-body-secondary">Height</span>
+                                <input disabled class="form-control border border-dark-subtle" [value]="image?.request?.height">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col input-group">
+                                <span class="input-group-text bg-body-secondary">Steps</span>
+                                <input disabled class="form-control border border-dark-subtle" [value]="image?.request?.steps">
+                            </div>
+
+                            <div class="col input-group">
+                                <span class="input-group-text bg-body-secondary">CFG</span>
+                                <input disabled class="form-control border border-dark-subtle" [value]="image?.request?.cfg_scale">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
