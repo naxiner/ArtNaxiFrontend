@@ -1,3 +1,9 @@
+import { SDRequest } from "./sd-request";
+
 export interface SDResponse {
-    imagePath: string;
+    id: string,
+    url: string,
+    creationTime: Date,
+    userId: string,
+    request: SDRequest;
 }
