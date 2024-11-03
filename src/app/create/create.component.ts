@@ -28,7 +28,7 @@ export class CreateComponent {
 
   styles: string[] = ['Negative'];
 
-  generatedImagesUrls: string[] = []
+  generatedImagesUrls: string[] = [];
   isGenerating: boolean = false;
 
   baseUrl = environment.baseUrl;
