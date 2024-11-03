@@ -93,14 +93,14 @@
         </form>
     </div>
 
-    <div *ngIf="generatedImagesUrls.length" class="position-relative d-flex align-items-center overflow-hidden border rounded-4 py-3" style="height: 350px;">
+    <div *ngIf="generatedImages.length" class="position-relative d-flex align-items-center overflow-hidden border rounded-4 py-3" style="height: 350px;">
         <button (click)="scrollLeft()" class="btn btn-lg btn-light position-absolute" 
             style="height: 100%; left: 0; z-index: 1; background-color: transparent; border: none;">
             <i class="bi bi-chevron-compact-left"></i>
         </button>
 
         <div #imageContainer class="mx-3 image-scroll-container d-flex gap-3" style="height: 100%; width: 100%; scroll-behavior: smooth;">
-            <img *ngFor="let imageUrl of generatedImagesUrls" [src]="baseUrl + imageUrl" 
+            <img *ngFor="let image of generatedImages" [src]="baseUrl + image.url" 
                 class="img-fluid rounded-4"  style="object-fit: cover; cursor: pointer;" alt="Generated Image" />
         </div>
 

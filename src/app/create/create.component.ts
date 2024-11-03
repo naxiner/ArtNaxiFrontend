@@ -5,6 +5,7 @@ import { SDRequest } from '../../models/sd-request';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
+import { Image } from '../../models/image';
 
 @Component({
   selector: 'app-create',
@@ -28,7 +29,7 @@ export class CreateComponent {
 
   styles: string[] = ['Negative'];
 
-  generatedImagesUrls: string[] = [];
+  generatedImages: Image[] = [];
   isGenerating: boolean = false;
 
   baseUrl = environment.baseUrl;
@@ -53,7 +54,13 @@ export class CreateComponent {
     
     this.sdService.generateImage(this.sdRequest).subscribe({
       next: (response) => {
-        this.generatedImagesUrls.unshift(response.imagePath);
+        this.generatedImages.unshift({
+          id: response.id,
+          url: response.url,
+          creationTime: response.creationTime,
+          userId: response.userId,
+          request: response.request,
+        });
       },
       error: (err) => {
         console.log(err.error);
