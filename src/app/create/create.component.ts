@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ImageGeneratorService } from '../image-generator.service';
 import { SDRequest } from '../../models/sd-request';
@@ -28,10 +28,12 @@ export class CreateComponent {
 
   styles: string[] = ['Negative'];
 
-  generatedImageUrl: string | null = null;
+  generatedImagesUrls: string[] = []
   isGenerating: boolean = false;
 
   baseUrl = environment.baseUrl;
+
+  @ViewChild('imageContainer', { static: false }) imageContainer!: ElementRef;
 
   constructor(private sdService: ImageGeneratorService, private route: ActivatedRoute) {}
 
@@ -51,8 +53,7 @@ export class CreateComponent {
     
     this.sdService.generateImage(this.sdRequest).subscribe({
       next: (response) => {
-        console.log(response);
-        this.generatedImageUrl = response.imagePath;
+        this.generatedImagesUrls.push(response.imagePath);
       },
       error: (err) => {
         console.log(err.error);
@@ -67,5 +68,17 @@ export class CreateComponent {
     const temp = this.sdRequest.width;
     this.sdRequest.width = this.sdRequest.height;
     this.sdRequest.height = temp;
+  }
+
+  scrollLeft() {
+    this.imageContainer.nativeElement.scrollBy({
+      left: -500,
+    });
+  }
+
+  scrollRight() {
+    this.imageContainer.nativeElement.scrollBy({
+      left: 500,
+    });
   }
 }

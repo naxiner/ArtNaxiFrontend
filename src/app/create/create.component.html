@@ -1,45 +1,49 @@
 <h2 class="text-center my-5">Create image</h2>
 
-<div class="w-75 mb-5 mx-auto">
-    <div class="row">
-        <div class="col">
-            <form (ngSubmit)="onSubmit()" #createForm="ngForm" class="border rounded p-4">
-                <div class="mb-3">
-                    <label for="promptTextarea" class="form-label">Prompt</label>
-                    <textarea class="form-control" [(ngModel)]="sdRequest.prompt" name="prompt" id="promptTextarea" rows="2"></textarea>
-                </div>
-        
-                <div class="mb-3">
-                    <label for="negativePromptTextarea" class="form-label">Negative Prompt</label>
-                    <textarea class="form-control" [(ngModel)]="sdRequest.negative_prompt" name="negativePrompt" id="negativePromptTextarea" rows="1"></textarea>
-                </div>
-        
-                <div class="mb-3">
-                    <label for="styleSelect" class="form-label">Select Style</label>
-                    <select id="styleSelect" [(ngModel)]="sdRequest.styles" name="styles" class="form-select">
-                        <option *ngFor="let style of styles" [value]="style">{{ style }}</option>
-                    </select>
+<div class="mb-3">
+    <div class="w-75 mx-auto">
+        <form (ngSubmit)="onSubmit()" #createForm="ngForm" class="mb-3 border rounded-4 p-4">
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="promptTextarea" class="form-label">Prompt</label>
+                        <textarea class="form-control" [(ngModel)]="sdRequest.prompt" name="prompt" id="promptTextarea" rows="2"></textarea>
+                    </div>
+            
+                    <div class="mb-3">
+                        <label for="negativePromptTextarea" class="form-label">Negative Prompt</label>
+                        <textarea class="form-control" [(ngModel)]="sdRequest.negative_prompt" name="negativePrompt" id="negativePromptTextarea" rows="1"></textarea>
+                    </div>
                 </div>
                 
-                <div class="mb-3 row text-center">
-                    <div class="col">
-                        <label for="width" class="form-label">Width</label>
-                        <input type="number" class="form-control" [(ngModel)]="sdRequest.width" name="width" id="width" placeholder="Enter width">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="styleSelect" class="form-label">Select Style</label>
+                        <select id="styleSelect" [(ngModel)]="sdRequest.styles" name="styles" class="form-select">
+                            <option *ngFor="let style of styles" [value]="style">{{ style }}</option>
+                        </select>
                     </div>
-
-                    <div class="col-3">
-                        <label>Reverse</label>
-                        <button class="btn btn-secondary mt-2" type="button" (click)="reverseResolution()">
-                            <i class="bi bi-repeat"></i>
-                        </button>
-                    </div>
-
-                    <div class="col">
-                        <label for="height" class="form-label">Height</label>
-                        <input type="number" class="form-control" [(ngModel)]="sdRequest.height" name="height" id="height" placeholder="Enter height">
+                    
+                    <div class="mb-3 row text-center">
+                        <div class="col">
+                            <label for="width" class="form-label">Width</label>
+                            <input type="number" class="form-control" [(ngModel)]="sdRequest.width" name="width" id="width" placeholder="Enter width">
+                        </div>
+    
+                        <div class="col-3">
+                            <label>Reverse</label>
+                            <button class="btn btn-secondary mt-2" type="button" (click)="reverseResolution()">
+                                <i class="bi bi-repeat"></i>
+                            </button>
+                        </div>
+    
+                        <div class="col">
+                            <label for="height" class="form-label">Height</label>
+                            <input type="number" class="form-control" [(ngModel)]="sdRequest.height" name="height" id="height" placeholder="Enter height">
+                        </div>
                     </div>
                 </div>
-        
+
                 <div class="accordion mb-3" id="accordionPanelAdditionalSettings">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
@@ -47,6 +51,7 @@
                                 Additional Settings
                             </button>
                         </h2>
+                        
                         <div id="panelsStayOpen-collapse" class="accordion-collapse collapse">
                             <div class="accordion-body">
                                 <div class="mb-3 row">
@@ -77,19 +82,29 @@
                         </div>
                     </div>
                 </div>
-        
+
                 <div class="d-grid mx-auto">
                     <button [disabled]="isGenerating" type="submit" class="btn btn-primary">
                         <div *ngIf="isGenerating" class="spinner-border spinner-border-sm" role="status"></div>
                         {{ isGenerating ? 'Generating...' : 'Generate' }}
                     </button>
                 </div>
-            </form>
-        </div>
-        <div class="col">
-            <div *ngIf="generatedImageUrl">
-                <img [src]="baseUrl + generatedImageUrl" alt="Generated Image" style="max-width: 100%; height: auto;" />
             </div>
+        </form>
+    </div>
+
+    <div *ngIf="generatedImagesUrls" class="position-relative d-flex align-items-center overflow-hidden border rounded-4 py-3" style="height: 350px;">
+        <button (click)="scrollLeft()" class="btn btn-light position-absolute" 
+            style="left: 0; z-index: 1; opacity: 0.7; border-radius: 50%;">&lt;
+        </button>
+
+        <div #imageContainer class="mx-3 image-scroll-container d-flex gap-3" style="height: 100%; width: 100%; scroll-behavior: smooth;">
+            <img *ngFor="let imageUrl of generatedImagesUrls" [src]="baseUrl + imageUrl" 
+                class="img-fluid rounded-4"  style="object-fit: cover; cursor: pointer;" alt="Generated Image" />
         </div>
+
+        <button (click)="scrollRight()" class="btn btn-light position-absolute" 
+            style="right: 0; z-index: 1; opacity: 0.7; border-radius: 50%;">&gt;
+        </button>
     </div>
 </div>
