@@ -100,8 +100,8 @@
         </button>
 
         <div #imageContainer class="mx-3 image-scroll-container d-flex gap-3" style="height: 100%; width: 100%; scroll-behavior: smooth;">
-            <img *ngFor="let image of generatedImages" [src]="baseUrl + image.url" 
-                class="img-fluid rounded-4"  style="object-fit: cover; cursor: pointer;" alt="Generated Image" />
+            <img *ngFor="let image of generatedImages" [src]="baseUrl + image.url" (click)="showImageModal(image)"
+                class="img-fluid rounded-4" style="object-fit: cover; cursor: pointer;" alt="Generated Image" />
         </div>
 
         <button (click)="scrollRight()" class="btn btn-lg btn-light position-absolute" 

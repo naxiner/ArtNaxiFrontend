@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { Image } from '../../models/image';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-create',
@@ -36,7 +37,11 @@ export class CreateComponent {
 
   @ViewChild('imageContainer', { static: false }) imageContainer!: ElementRef;
 
-  constructor(private sdService: ImageGeneratorService, private route: ActivatedRoute) {}
+  constructor(
+    private sdService: ImageGeneratorService,
+    private modalService: ModalService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -87,5 +92,9 @@ export class CreateComponent {
     this.imageContainer.nativeElement.scrollBy({
       left: 500,
     });
+  }
+
+  showImageModal(image: Image) {
+    this.modalService.openModal(image);
   }
 }
