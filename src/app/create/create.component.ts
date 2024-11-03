@@ -53,7 +53,7 @@ export class CreateComponent {
     
     this.sdService.generateImage(this.sdRequest).subscribe({
       next: (response) => {
-        this.generatedImagesUrls.push(response.imagePath);
+        this.generatedImagesUrls.unshift(response.imagePath);
       },
       error: (err) => {
         console.log(err.error);
