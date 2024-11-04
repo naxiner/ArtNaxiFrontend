@@ -66,6 +66,9 @@ export class CreateComponent {
           userId: response.userId,
           request: response.request,
         });
+        this.imageContainer.nativeElement.scrollTo({
+          left: 0,
+        });
       },
       error: (err) => {
         console.log(err.error);
