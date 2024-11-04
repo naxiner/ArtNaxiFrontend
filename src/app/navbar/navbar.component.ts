@@ -31,7 +31,6 @@ export class NavbarComponent implements OnInit {
           if (this.userId) {
             this.userProfileService.getUserProfileAvatar(this.userId).subscribe((response: { userAvatarUrl: string }) => {
               this.userAvatarUrl = response.userAvatarUrl;
-              console.log(response.userAvatarUrl);
             });
           }
         }

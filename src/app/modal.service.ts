@@ -1,21 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Image } from '../models/image';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
-  constructor() { }
-  
-  private showModalCallback: ((image: Image) => void) | null = null;
+  private showModalCallback: ((image: Image, isAllowToDelete: boolean) => void) | null = null;
+  private imageDeletedSubject = new Subject<string>();
 
-  registerShowModalCallback(callback: (image: Image) => void) {
+  imageDeleted$ = this.imageDeletedSubject.asObservable();
+
+  registerShowModalCallback(callback: (image: Image, isAllowToDelete: boolean) => void) {
     this.showModalCallback = callback;
   }
 
-  openModal(image: Image) {
+  openModal(image: Image, isAllowToDelete: boolean) {
     if (this.showModalCallback) {
-      this.showModalCallback(image);
+      this.showModalCallback(image, isAllowToDelete);
     }
+  }
+
+  notifyImageDeleted(imageId: string) {
+    this.imageDeletedSubject.next(imageId);
   }
 }

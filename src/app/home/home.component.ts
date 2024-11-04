@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
   }
 
   showImageModal(image: Image) {
-    this.modalService.openModal(image);
+    this.modalService.openModal(image, false);
   }
 
   @HostListener('window:scroll', [])

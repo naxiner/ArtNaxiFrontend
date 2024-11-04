@@ -20,14 +20,17 @@ export class AppComponent {
   @ViewChild(ImageModalComponent) imageModal!: ImageModalComponent;
   baseUrl = environment.baseUrl;
   image: Image | null = null;
+  isAllowToDelete: boolean = false;
   title = 'ArtNaxiFrontend';
 
   ngOnInit() {
-    this.modalService.registerShowModalCallback((image) => this.openModal(image));
+    this.modalService.registerShowModalCallback((image, isAllowToDelete) => 
+      this.openModal(image, isAllowToDelete));
   }
 
-  openModal(image: Image) {
+  openModal(image: Image, isAllowToDelete: boolean) {
     this.imageModal.image = image;
+    this.imageModal.isAllowToDelete = isAllowToDelete;
     this.imageModal.show();
   }
 }

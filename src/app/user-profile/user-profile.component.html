@@ -16,10 +16,8 @@
         <div class="mb-5">
             <div class="row row-cols-3 row-cols-lg-6 g-2 g-lg-2">
                 <div *ngFor="let image of userImages; let i = index">
-                    <img [src]="baseUrl + image.url" alt="User image" class="img-fluid rounded-4">
-                    <button *ngIf="isAllowToDelete" class="btn btn-danger" (click)="deleteImage(image.id)">
-                        <i class="bi bi-trash"></i>
-                    </button>
+                    <img [src]="baseUrl + image.url" alt="User image" class="img-fluid rounded-4" (click)="showImageModal(image)"
+                        style="height: 200px; width: 300px; object-fit: cover; cursor: pointer;">
                 </div>
             </div>
         </div>

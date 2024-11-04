@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { UserProfileService } from '../user-profile.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -6,11 +6,13 @@ import { environment } from '../../environments/environment';
 import { ImageGeneratorService } from '../image-generator.service';
 import { AuthService } from '../auth.service';
 import { Image } from '../../models/image';
+import { ModalService } from '../modal.service';
+import { ImageModalComponent } from "../image-modal/image-modal.component";
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ImageModalComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
@@ -30,8 +32,13 @@ export class UserProfileComponent implements OnInit{
     private authService: AuthService,
     private userProfileService: UserProfileService,
     private imageGeneratorService: ImageGeneratorService,
+    private modalService: ModalService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    this.modalService.imageDeleted$.subscribe(imageId => {
+      this.onImageDeleted(imageId);
+    });
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -94,5 +101,13 @@ export class UserProfileComponent implements OnInit{
       this.pageNumber++;
       this.loadUserImages();
     }
+  }
+
+  showImageModal(image: Image) {
+    this.modalService.openModal(image, this.isAllowToDelete);
+  }
+
+  onImageDeleted(id: string) {
+    this.userImages = this.userImages.filter(image => image.id !== id);
   }
 }

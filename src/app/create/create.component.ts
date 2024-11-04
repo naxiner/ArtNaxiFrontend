@@ -41,7 +41,11 @@ export class CreateComponent {
     private sdService: ImageGeneratorService,
     private modalService: ModalService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.modalService.imageDeleted$.subscribe(imageId => {
+      this.onImageDeleted(imageId);
+    });
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -100,6 +104,10 @@ export class CreateComponent {
   }
 
   showImageModal(image: Image) {
-    this.modalService.openModal(image);
+    this.modalService.openModal(image, true);
+  }
+
+  onImageDeleted(id: string) {
+    this.generatedImages = this.generatedImages.filter(image => image.id !== id);
   }
 }
