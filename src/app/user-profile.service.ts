@@ -14,4 +14,8 @@ export class UserProfileService {
   getUserProfile(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
+
+  getUserProfileAvatar(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/avatar/${id}`);
+  }
 }
