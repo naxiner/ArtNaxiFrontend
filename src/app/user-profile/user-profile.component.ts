@@ -78,17 +78,6 @@ export class UserProfileComponent implements OnInit{
     );
   }
 
-  deleteImage(id: string): void {
-    this.imageGeneratorService.deleteImage(id).subscribe(
-      () => {
-        this.userImages = this.userImages.filter((img: any) => img.id !== id);
-      },
-      (error) => {
-        console.error('Error deleting image', error)
-      }
-    )
-  }
-
   goToPreviousPage(): void {
     if (this.pageNumber > 1) {
       this.pageNumber--;
@@ -109,5 +98,9 @@ export class UserProfileComponent implements OnInit{
 
   onImageDeleted(id: string) {
     this.userImages = this.userImages.filter(image => image.id !== id);
+
+    if (this.userImages.length < this.pageSize && this.pageNumber < this.totalPages) {
+      this.loadUserImages();
+    }
   }
 }
