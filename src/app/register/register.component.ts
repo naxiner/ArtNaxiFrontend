@@ -28,8 +28,7 @@ export class RegisterComponent {
   
   onSubmit(): void {
     this.authService.registerUser(this.registerData).subscribe({
-      next: (response) => {
-        console.log(response);
+      next: () => {
         this.router.navigate(['/']);
       },
       error: (err) => {
