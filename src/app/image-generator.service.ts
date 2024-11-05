@@ -22,6 +22,10 @@ export class ImageGeneratorService {
     return this.http.get<Image[]>(`${this.apiUrl}/recent?pageNumber=${pageNumber}&pageSize=${pageSize}`)
   }
 
+  getRecentPublicImages(pageNumber: number, pageSize: number): Observable<Image[]> {
+    return this.http.get<Image[]>(`${this.apiUrl}/recent/public?pageNumber=${pageNumber}&pageSize=${pageSize}`)
+  }
+
   getImageById(id: string): Observable<Image> {
     return this.http.get<Image>(`${this.apiUrl}/${id}`);
   }
