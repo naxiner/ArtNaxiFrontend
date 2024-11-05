@@ -16,7 +16,7 @@
         <div class="mb-5">
             <div class="row row-cols-3 row-cols-lg-6 g-2 g-lg-2">
                 <div *ngFor="let image of userImages; let i = index">
-                    <img [src]="baseUrl + image.url" alt="User image" class="img-fluid rounded-4" (click)="showImageModal(image)"
+                    <img [src]="baseUrl + image.url" alt="User image" class="img-fluid rounded-4 image-zoom" (click)="showImageModal(image)"
                         style="height: 200px; width: 300px; object-fit: cover; cursor: pointer;">
                 </div>
             </div>
@@ -28,16 +28,15 @@
                         <a class="page-link" type="button" (click)="goToPreviousPage()" aria-label="Previous">
                           <span aria-hidden="true">&laquo;</span>
                         </a>
-                      </li>
-                      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" 
-                          [class.active]="pageNumber === i + 1">
+                    </li>
+                    <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="pageNumber === i + 1">
                         <a class="page-link" type="button" (click)="pageNumber = i + 1; loadUserImages()">{{ i + 1 }}</a>
-                      </li>
-                      <li class="page-item" [class.disabled]="pageNumber === totalPages">
+                    </li>
+                    <li class="page-item" [class.disabled]="pageNumber === totalPages">
                         <a class="page-link" type="button" (click)="goToNextPage()" aria-label="Next">
                           <span aria-hidden="true">&raquo;</span>
                         </a>
-                      </li>
+                    </li>
                 </ul>
             </nav>
         </div>

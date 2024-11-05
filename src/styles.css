@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+.image-zoom {
+    transition: transform 0.3s ease;
+}
+
+.image-zoom:hover {
+    transform: scale(1.05);
+}
