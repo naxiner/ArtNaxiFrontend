@@ -32,6 +32,12 @@ export class ImageGeneratorService {
     );
   }
 
+  getPublicImagesByUserId(userId: string, pageNumber: number, pageSize: number) {
+    return this.http.get<{ userImages: Image[], totalPages: number }>(
+        `${this.apiUrl}/user/${userId}/public?pageNumber=${pageNumber}&pageSize=${pageSize}`
+    );
+  }
+
   generateImage(request: SDRequest): Observable<SDResponse> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
