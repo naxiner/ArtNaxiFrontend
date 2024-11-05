@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./navbar/navbar.component";
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,7 @@ export class AppComponent {
   baseUrl = environment.baseUrl;
   image: Image | null = null;
   isAllowToDelete: boolean = false;
+  isVisibleButtonToTop: boolean = false;
   title = 'ArtNaxiFrontend';
 
   ngOnInit() {
@@ -32,5 +33,17 @@ export class AppComponent {
     this.imageModal.image = image;
     this.imageModal.isAllowToDelete = isAllowToDelete;
     this.imageModal.show();
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isVisibleButtonToTop = window.scrollY > 300;
+  }
+
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 }

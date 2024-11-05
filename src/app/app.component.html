@@ -4,5 +4,8 @@
         (click)="openModal(image, isAllowToDelete)" style="cursor: pointer;" />
 
     <image-modal></image-modal>
+    <button class="back-to-top" (click)="scrollToTop()" *ngIf="isVisibleButtonToTop">
+        <i class="bi bi-chevron-up"></i>
+    </button>
     <router-outlet></router-outlet>
 </div>
