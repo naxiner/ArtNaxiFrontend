@@ -63,8 +63,19 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button *ngIf="isAllowToDelete" class="btn btn-danger" (click)="deleteImage(image?.id!)">
+            <div *ngIf="isAllowToDelete" class="modal-footer">
+                <div *ngIf="image?.isPublic">
+                    <button class="btn btn-danger">
+                        <i class="bi bi-lock"></i> Make Private
+                    </button>
+                </div>
+                <div *ngIf="!image?.isPublic">
+                    <button class="btn btn-success">
+                        <i class="bi bi-unlock"></i> Make Public
+                    </button>
+                </div>
+
+                <button class="btn btn-danger" (click)="deleteImage(image?.id!)">
                     <i class="bi bi-trash"></i> Delete
                 </button>
                 <button type="button" class="btn btn-secondary" (click)="close()">Close</button>

@@ -69,6 +69,7 @@ export class CreateComponent {
           creationTime: response.creationTime,
           userId: response.userId,
           request: response.request,
+          isPublic: response.isPublic
         });
         if (this.imageContainer && this.imageContainer.nativeElement) {
           this.imageContainer.nativeElement.scrollTo({
