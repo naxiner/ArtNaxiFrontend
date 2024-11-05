@@ -114,4 +114,11 @@ export class UserProfileComponent implements OnInit{
       this.loadUserImages();
     }
   }
+
+  onImageVisibilityChanged(id: string) {
+    const image = this.userImages.find(image => image.id === id);
+    if (image) {
+      image.isPublic = image.isPublic;
+    }
+  }
 }

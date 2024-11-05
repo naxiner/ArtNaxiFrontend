@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 export class ModalService {
   private showModalCallback: ((image: Image, isAllowToDelete: boolean) => void) | null = null;
   private imageDeletedSubject = new Subject<string>();
+  private imageVisibilityChangedSubject = new Subject<string>();
 
   imageDeleted$ = this.imageDeletedSubject.asObservable();
 
@@ -23,5 +24,9 @@ export class ModalService {
 
   notifyImageDeleted(imageId: string) {
     this.imageDeletedSubject.next(imageId);
+  }
+
+  notifyVisibilityChanged(imageId: string) {
+    this.imageVisibilityChangedSubject.next(imageId);
   }
 }
