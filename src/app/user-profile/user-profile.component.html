@@ -26,6 +26,9 @@
         </ul>
 
         <div class="mb-5">
+            <div *ngIf="!userImages || !userImages.length">
+                <h3 class="mt-5 text-center">No Images</h3>
+            </div>
             <div class="row row-cols-3 row-cols-lg-6 g-2 g-lg-2">
                 <div *ngFor="let image of userImages; let i = index">
                     <img [src]="baseUrl + image.url" alt="User image" class="img-fluid rounded-4 image-zoom" (click)="showImageModal(image)"
@@ -33,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div *ngIf="userImages.length">
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
                     <li class="page-item" [class.disabled]="pageNumber === 1">
