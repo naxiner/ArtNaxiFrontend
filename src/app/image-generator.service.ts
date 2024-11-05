@@ -51,4 +51,18 @@ export class ImageGeneratorService {
     
     return this.http.delete(`${this.apiUrl}/${id}`, { headers });
   }
+
+  makeImagePublic(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.put(`${this.apiUrl}/${id}/make-public`, { headers });
+  }
+
+  makeImagePrivate(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.put(`${this.apiUrl}/${id}/make-private`, { headers });
+  }
 }
