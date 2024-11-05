@@ -12,7 +12,19 @@
             </div>
         </div>
 
-        <h3 class="text-center mb-4">Image collection</h3>
+        <ul class="nav nav-tabs justify-content-center mb-4">
+            <li class="nav-item">
+                <a class="nav-link text-dark" type="button" [class.active]="selectedTab === 'public'" (click)="changeTab('public')">
+                    <i class="bi bi-person-circle"></i> Public images
+                </a>
+            </li>
+            <li *ngIf="isAllowToDelete" class="nav-item">
+                <a class="nav-link text-dark" type="button" [class.active]="selectedTab === 'all'" (click)="changeTab('all')">
+                    <i class="bi bi-grid-3x3-gap-fill"></i> All images
+                </a>
+            </li>
+        </ul>
+
         <div class="mb-5">
             <div class="row row-cols-3 row-cols-lg-6 g-2 g-lg-2">
                 <div *ngFor="let image of userImages; let i = index">

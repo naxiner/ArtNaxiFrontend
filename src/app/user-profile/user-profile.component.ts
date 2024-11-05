@@ -27,6 +27,7 @@ export class UserProfileComponent implements OnInit{
   pageNumber = 1;
   pageSize = 12;
   totalPages = 1;
+  selectedTab: 'public' | 'all' = 'public';
 
   constructor (
     private authService: AuthService,
@@ -55,8 +56,18 @@ export class UserProfileComponent implements OnInit{
     });
   }
 
+  changeTab(tab: 'public' | 'all'): void {
+    this.selectedTab = tab;
+    this.pageNumber = 1;
+    this.loadUserImages();
+  }
+
   loadUserImages(): void {
-    this.imageGeneratorService.getImagesByUserId(this.userId, this.pageNumber, this.pageSize).subscribe(
+    const fetchImages = this.selectedTab === 'public'
+      ? this.imageGeneratorService.getPublicImagesByUserId(this.userId, this.pageNumber, this.pageSize)
+      : this.imageGeneratorService.getImagesByUserId(this.userId, this.pageNumber, this.pageSize);
+  
+    fetchImages.subscribe(
       (response: { userImages: Image[], totalPages: number }) => {
         this.userImages = response.userImages;
         this.totalPages = response.totalPages;
@@ -65,7 +76,7 @@ export class UserProfileComponent implements OnInit{
         console.error('Error loading user images', error);
       }
     );
-}
+  }
 
   loadUserProfile(id: string): void {
     this.userProfileService.getUserProfile(id).subscribe(
