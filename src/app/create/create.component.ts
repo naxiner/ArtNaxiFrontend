@@ -67,6 +67,7 @@ export class CreateComponent {
           id: response.id,
           url: response.url,
           creationTime: response.creationTime,
+          createdBy: response.createdBy,
           userId: response.userId,
           request: response.request,
           isPublic: response.isPublic
