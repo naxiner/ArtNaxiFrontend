@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Image } from '../models/image';
 import { Subject } from 'rxjs';
+import { Image } from '../../models/image';
 
 @Injectable({
   providedIn: 'root'

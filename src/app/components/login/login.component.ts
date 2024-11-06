@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
-import { LoginDTO } from '../../models/login';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { LoginDTO } from '../../../models/login';
 
 @Component({
   selector: 'app-login',

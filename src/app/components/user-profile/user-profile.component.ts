@@ -1,13 +1,13 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { UserProfileService } from '../user-profile.service';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../environments/environment';
-import { ImageGeneratorService } from '../image-generator.service';
-import { AuthService } from '../auth.service';
-import { Image } from '../../models/image';
-import { ModalService } from '../modal.service';
+import { ActivatedRoute } from '@angular/router';
 import { ImageModalComponent } from "../image-modal/image-modal.component";
+import { AuthService } from '../../services/auth.service';
+import { UserProfileService } from '../../services/user-profile.service';
+import { ImageGeneratorService } from '../../services/image-generator.service';
+import { ModalService } from '../../services/modal.service';
+import { Image } from '../../../models/image';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-user-profile',

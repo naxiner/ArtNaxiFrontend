@@ -1,12 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ImageGeneratorService } from '../image-generator.service';
-import { SDRequest } from '../../models/sd-request';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
-import { Image } from '../../models/image';
-import { ModalService } from '../modal.service';
+import { ImageGeneratorService } from '../../services/image-generator.service';
+import { ModalService } from '../../services/modal.service';
+import { SDRequest } from '../../../models/sd-request';
+import { Image } from '../../../models/image';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-create',

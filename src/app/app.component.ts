@@ -1,11 +1,11 @@
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from "./navbar/navbar.component";
+import { NavbarComponent } from "./components/navbar/navbar.component";
 import { CommonModule } from '@angular/common';
-import { ImageModalComponent } from "./image-modal/image-modal.component";
-import { ModalService } from './modal.service';
-import { environment } from '../environments/environment';
+import { ImageModalComponent } from "./components/image-modal/image-modal.component";
+import { ModalService } from './services/modal.service';
 import { Image } from '../models/image';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',

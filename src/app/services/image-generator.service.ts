@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { SDRequest } from '../models/sd-request';
-import { SDResponse } from '../models/sd-response';
 import { Observable } from 'rxjs';
-import { Image } from '../models/image';
+import { Image } from '../../models/image';
+import { SDRequest } from '../../models/sd-request';
+import { SDResponse } from '../../models/sd-response';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

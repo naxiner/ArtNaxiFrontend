@@ -1,12 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ImageGeneratorService } from '../image-generator.service';
-import { Image } from '../../models/image';
-import { CommonModule } from '@angular/common';
-import { environment } from '../../environments/environment';
-import { ModalService } from '../modal.service';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { ImageGeneratorService } from '../../services/image-generator.service';
+import { ModalService } from '../../services/modal.service';
+import { AuthService } from '../../services/auth.service';
+import { Image } from '../../../models/image';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',

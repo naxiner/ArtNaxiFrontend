@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { Image } from '../../models/image';
-import { ImageGeneratorService } from '../image-generator.service';
 import { CommonModule } from '@angular/common';
-import { ModalService } from '../modal.service';
 import { Router } from '@angular/router';
+import { ImageGeneratorService } from '../../services/image-generator.service';
+import { ModalService } from '../../services/modal.service';
+import { Image } from '../../../models/image';
+import { environment } from '../../../environments/environment';
 
 declare var bootstrap: any;
 

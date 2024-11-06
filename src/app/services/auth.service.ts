@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, switchMap } from 'rxjs';
-import { environment } from '../environments/environment';
-import { RegisterDTO } from '../models/register';
-import { LoginDTO } from '../models/login';
 import { jwtDecode } from 'jwt-decode';
-import { AuthResponse } from '../models/auth-response';
-import { RegisterResponse } from '../models/register-response';
+import { RegisterDTO } from '../../models/register';
+import { LoginDTO } from '../../models/login';
+import { AuthResponse } from '../../models/auth-response';
+import { RegisterResponse } from '../../models/register-response';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

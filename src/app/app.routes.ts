@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { CreateComponent } from './create/create.component';
-import { authGuard } from './auth.guard';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { CreateComponent } from './components/create/create.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
