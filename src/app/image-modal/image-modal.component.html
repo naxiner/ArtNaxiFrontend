@@ -7,9 +7,21 @@
                         <img [src]="baseUrl + image?.url" class="img-fluid rounded-3" alt="Generated image">
                     </div>
                     <div class="col">
-                        <div class="text-end">
-                            <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+                        <div class="row mb-3">
+                            <div class="col-auto container d-flex align-items-center">
+                                <h5 class="mb-0 text-dark">by:</h5>
+                                <a class="text-decoration-none ms-2" type="button" (click)="openProfile(image?.userId!)">
+                                    <h5 class="mb-0 text-primary">{{ image?.createdBy || "Unknown" }}</h5>
+                                </a>
+                            </div>
+
+                            <div class="col">
+                                <div class="text-end">
+                                    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label">Prompt</label>
                             <input disabled class="form-control border border-dark-subtle" [value]="image?.request?.prompt">

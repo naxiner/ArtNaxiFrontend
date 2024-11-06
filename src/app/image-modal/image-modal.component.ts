@@ -4,6 +4,7 @@ import { Image } from '../../models/image';
 import { ImageGeneratorService } from '../image-generator.service';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../modal.service';
+import { Router } from '@angular/router';
 
 declare var bootstrap: any;
 
@@ -23,7 +24,8 @@ export class ImageModalComponent {
 
   constructor(
     private imageGeneratorService: ImageGeneratorService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private router: Router
   ) {}
 
   show() {
@@ -34,6 +36,11 @@ export class ImageModalComponent {
   close() {
     const modal = bootstrap.Modal.getInstance(document.getElementById('imageModal'));
     modal.hide();
+  }
+
+  openProfile(userId: string): void {
+    this.router.navigate([`profile/${userId}`])
+    this.close();
   }
 
   deleteImage(id: string): void {
