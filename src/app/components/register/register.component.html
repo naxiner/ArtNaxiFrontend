@@ -9,7 +9,7 @@
       <label for="username" class="form-label">Username</label>
       <input type="text" #username="ngModel" id="username" name="username" class="form-control" [(ngModel)]="registerData.username" required />
       <div *ngIf="username.invalid && (username.touched || username.dirty)">
-        <div class="text-danger" *ngIf="username.errors?.['required']">Frist Name is required.</div>
+        <div class="text-danger" *ngIf="username.errors?.['required']">Username is required.</div>
       </div>
     </div>
   

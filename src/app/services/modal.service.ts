@@ -11,6 +11,7 @@ export class ModalService {
   private imageVisibilityChangedSubject = new Subject<string>();
 
   imageDeleted$ = this.imageDeletedSubject.asObservable();
+  imageVisibilityChanged$ = this.imageVisibilityChangedSubject.asObservable();
 
   registerShowModalCallback(callback: (image: Image, isAllowToDelete: boolean) => void) {
     this.showModalCallback = callback;
