@@ -25,4 +25,8 @@ export class UserProfileService {
 
     return this.http.put<any>(`${this.apiUrl}/avatar/${id}`, formData, { headers });
   }
+
+  getPublicImageCount(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}/public-image-count`)
+  }
 }

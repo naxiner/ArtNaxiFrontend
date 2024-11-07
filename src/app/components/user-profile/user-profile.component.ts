@@ -39,6 +39,7 @@ export class UserProfileComponent implements OnInit{
 
   userImages: Image[] = [];
 
+  publicImageCount = 0;
   pageNumber = 1;
   pageSize = 12;
   totalPages = 1;
@@ -75,6 +76,7 @@ export class UserProfileComponent implements OnInit{
 
       this.loadUserImages();
       this.loadUserProfile(this.userId);
+      this.getPublicImageCount(this.userId);
     });
   }
 
@@ -109,6 +111,17 @@ export class UserProfileComponent implements OnInit{
         console.error('Error loading user profile', error);
       }
     );
+  }
+
+  getPublicImageCount(id: string): void {
+    this.userProfileService.getPublicImageCount(id).subscribe(
+      (response) => {
+        this.publicImageCount = response.publicImageCount;
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
   }
 
   goToPreviousPage(): void {
