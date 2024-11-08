@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { ImageModalComponent } from "../image-modal/image-modal.component";
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
@@ -15,7 +14,7 @@ import { EditUserRequest } from '../../../models/edit-user-request';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, ImageModalComponent, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })

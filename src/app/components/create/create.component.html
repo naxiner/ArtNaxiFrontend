@@ -2,6 +2,9 @@
 
 <div class="mb-3">
     <div class="w-75 mx-auto">
+        <div class="alert alert-danger text-center" *ngIf="errorMessage != ''">
+            {{ errorMessage }}
+        </div>
         <form (ngSubmit)="onSubmit()" #createForm="ngForm" class="mb-3 border rounded-4 p-4">
             <div class="row">
                 <div class="col">
@@ -63,6 +66,11 @@
                                         <label for="cfgScale" class="form-label">CFG Scale</label>
                                         <input type="number" class="form-control" [(ngModel)]="sdRequest.cfg_scale" name="cfgScale" id="cfgScale" placeholder="Enter CFG">
                                     </div>
+                                    <div class="col">
+                                        <label for="seed" class="form-label">Seed</label>
+                                        <input type="number" class="form-control" [(ngModel)]="displayedSeed" (input)="validateSeed()"
+                                            name="seed" id="seed" placeholder="Enter seed" min="-1" max="2147483647" pattern="^-?[0-9]{1,10}$">
+                                    </div>
                                 </div>
                                 
                                 <div class="mb-3">
@@ -84,7 +92,7 @@
                 </div>
 
                 <div class="d-grid mx-auto">
-                    <button [disabled]="isGenerating" type="submit" class="btn btn-primary">
+                    <button [disabled]="isGenerating" [disabled]="createForm.invalid" type="submit" class="btn btn-primary">
                         <div *ngIf="isGenerating" class="spinner-border spinner-border-sm" role="status"></div>
                         {{ isGenerating ? 'Generating...' : 'Generate' }}
                     </button>
