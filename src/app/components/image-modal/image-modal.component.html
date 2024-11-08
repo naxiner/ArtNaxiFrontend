@@ -82,19 +82,22 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="isAllowToDelete" class="modal-footer">
-                <div *ngIf="image?.isPublic">
+            <div class="modal-footer">
+                <a [href]="baseUrl + image?.url" download="generated_image.jpg" class="btn btn-success">
+                    <i class="bi bi-download"></i>
+                </a>
+                <div *ngIf="isAllowToDelete && image?.isPublic">
                     <button class="btn btn-danger" (click)="makePrivate(image?.id!)">
                         <i class="bi bi-lock"></i> Make Private
                     </button>
                 </div>
-                <div *ngIf="!image?.isPublic">
+                <div *ngIf="isAllowToDelete && !image?.isPublic">
                     <button class="btn btn-success" (click)="makePublic(image?.id!)">
                         <i class="bi bi-unlock"></i> Make Public
                     </button>
                 </div>
 
-                <button class="btn btn-danger" (click)="deleteImage(image?.id!)">
+                <button *ngIf="isAllowToDelete" class="btn btn-danger" (click)="deleteImage(image?.id!)">
                     <i class="bi bi-trash"></i> Delete
                 </button>
                 <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
