@@ -33,13 +33,17 @@
                         <img [src]="avatarPreview" class="img-fluid border border-2 rounded-circle"
                              style="height: 200px; width: 200px; object-fit: cover;" alt="Profile Picture Preview">
                     </div>
+
                     <div class="mb-3">
-                        <label for="formFile" class="form-label text-muted">Select new Profile Picture</label>
-                        <input type="file" class="form-control" id="formFile" (change)="onFileSelected($event)">
-                    </div>
-                    
-                    <div class="d-flex justify-content-between">
-                        <button type="submit" [disabled]="!selectedFile" class="btn btn-success">Save Profile Image</button>
+                        <div class="row">
+                            <label for="formFile" class="form-label text-muted">Select new Profile Picture</label>
+                            <div class="col-auto">
+                                <input type="file" class="form-control me-2" id="formFile" (change)="onFileSelected($event)">
+                            </div>
+                            <div class="col text-end">
+                                <button type="submit" [disabled]="!selectedFile" class="btn btn-success">Save Profile Image</button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
