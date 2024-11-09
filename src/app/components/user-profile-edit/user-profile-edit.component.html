@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="alert alert-danger text-center" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <div class="col">
+    <form (ngSubmit)="onAddProfileImage()" #addProfileImageForm="ngForm" class="mb-3 border rounded-4 p-4">
+      <div *ngIf="avatarPreview" class="text-center mb-3">
+        <img [src]="avatarPreview" class="img-fluid border border-2 rounded-circle"
+          style="height: 200px; width: 200px; object-fit: cover;" alt="Profile Picture Preview">
+      </div>
+
+      <div class="mb-3">
+        <div class="row">
+          <label for="formFile" class="form-label text-muted">Select new Profile Picture</label>
+          <div class="col-auto">
+            <input type="file" class="form-control me-2" id="formFile" (change)="onFileSelected($event)">
+          </div>
+          <div class="col text-end">
+            <button type="submit" [disabled]="!selectedFile" class="btn btn-success">Save Profile Image</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col">
+    <form (ngSubmit)="onEditSubmit()" #editUserForm="ngForm" class="mb-3 border rounded-4 p-4">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username*</label>
+        <input class="form-control" required #username="ngModel" [(ngModel)]="editUserRequest.username" name="username" id="username" />
+        <div *ngIf="username.invalid && (username.touched || username.dirty)">
+          <div class="text-danger" *ngIf="username.errors?.['required']">Username is required.</div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="email" class="form-label">Email*</label>
+        <input class="form-control" required #email="ngModel" [(ngModel)]="editUserRequest.email" name="email" id="email" />
+        <div *ngIf="email.invalid && (email.touched || email.dirty)">
+          <div class="text-danger" *ngIf="email.errors?.['required']">Email is required.</div>
+          <div class="text-danger" *ngIf="email.errors?.['email']">Email is invalid.</div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="password" class="form-label">Password*</label>
+        <input type="password" #password="ngModel" class="form-control" [(ngModel)]="editUserRequest.password" name="password" id="password" 
+          required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"/>
+        <div *ngIf="password.invalid && (password.touched || password.dirty)">
+          <div class="text-danger" *ngIf="password.errors?.['required']">Password is required.</div>
+          <div class="text-danger" *ngIf="password.errors?.['minlength']">Password must be at least 8 characters long.</div>
+          <div class="text-danger" *ngIf="password.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.</div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="newPassword" class="form-label">New Password</label>
+        <input type="newPassword" #newPassword="ngModel" class="form-control" [(ngModel)]="editUserRequest.newPassword" name="newPassword" id="newPassword" 
+          minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"/>
+        <div *ngIf="newPassword.invalid && (newPassword.touched || newPassword.dirty)">
+          <div class="text-danger" *ngIf="newPassword.errors?.['minlength']">Password must be at least 8 characters long.</div>
+          <div class="text-danger" *ngIf="newPassword.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.</div>
+        </div>
+      </div>
+      
+      <div class="d-flex justify-content-between">
+        <button type="submit" [disabled]="editUserForm.invalid" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
