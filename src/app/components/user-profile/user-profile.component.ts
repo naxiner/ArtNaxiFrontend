@@ -18,7 +18,7 @@ import { environment } from '../../../environments/environment';
 })
 export class UserProfileComponent implements OnInit{
   baseUrl = environment.baseUrl;
-  user: any;
+  user: any = {};
   userId: string = '';
   currentUserRole: string = '';
   isAllowToDelete = false;
