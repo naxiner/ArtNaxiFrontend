@@ -1,0 +1,46 @@
+<div>
+    <ul class="nav nav-tabs justify-content-center mb-4">
+        <li class="nav-item">
+            <a class="nav-link text-dark" type="button" [class.active]="selectedTab === 'public'" (click)="changeTab('public')">
+                <i class="bi bi-person-circle"></i> Public images
+            </a>
+        </li>
+        <li *ngIf="isAllowToDelete" class="nav-item">
+            <a class="nav-link text-dark" type="button" [class.active]="selectedTab === 'all'" (click)="changeTab('all')">
+                <i class="bi bi-grid-3x3-gap-fill"></i> All images
+            </a>
+        </li>
+    </ul>
+    
+    <div class="mb-5">
+        <div *ngIf="!userImages || !userImages.length">
+            <h3 class="mt-5 text-center">No Images</h3>
+        </div>
+        <div class="row row-cols-3 row-cols-lg-6 g-2 g-lg-2">
+            <div *ngFor="let image of userImages; let i = index">
+                <img [src]="baseUrl + image.url" alt="User image" class="img-fluid rounded-4 image-zoom" (click)="showImageModal(image)"
+                    style="height: 200px; width: 300px; object-fit: cover; cursor: pointer;">
+            </div>
+        </div>
+    </div>
+    
+    <div *ngIf="userImages.length">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="pageNumber === 1">
+                    <a class="page-link" type="button" (click)="goToPreviousPage()" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="pageNumber === i + 1">
+                    <a class="page-link" type="button" (click)="pageNumber = i + 1; loadUserImages()">{{ i + 1 }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="pageNumber === totalPages">
+                    <a class="page-link" type="button" (click)="goToNextPage()" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

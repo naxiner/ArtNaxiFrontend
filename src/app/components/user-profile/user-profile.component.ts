@@ -3,18 +3,16 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserProfileEditComponent } from "../user-profile-edit/user-profile-edit.component";
+import { UserProfileImagesComponent } from '../user-profile-images/user-profile-images.component';
 import { AuthService } from '../../services/auth.service';
 import { UserProfileService } from '../../services/user-profile.service';
 import { UserDataService } from '../../services/user-data.service';
-import { ImageGeneratorService } from '../../services/image-generator.service';
-import { ModalService } from '../../services/modal.service';
-import { Image } from '../../../models/image';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, UserProfileEditComponent],
+  imports: [CommonModule, FormsModule, UserProfileEditComponent, UserProfileImagesComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
@@ -29,26 +27,14 @@ export class UserProfileComponent implements OnInit{
 
   errorMessage: string = "";
 
-  userImages: Image[] = [];
-
   publicImageCount = 0;
-  pageNumber = 1;
-  pageSize = 12;
-  totalPages = 1;
-  selectedTab: 'public' | 'all' = 'public';
 
   constructor (
     private authService: AuthService,
     private userProfileService: UserProfileService,
     private userDataService: UserDataService,
-    private imageGeneratorService: ImageGeneratorService,
-    private modalService: ModalService,
     private route: ActivatedRoute
   ) {
-    this.modalService.imageDeleted$.subscribe(imageId => {
-      this.onImageDeleted(imageId);
-    });
-
     this.userDataService.username$.subscribe(username => {
       this.user.username = username;
     });
@@ -76,32 +62,9 @@ export class UserProfileComponent implements OnInit{
         this.isAllowToEdit = true;
       }
 
-      this.loadUserImages();
       this.loadUserProfile(this.userId);
       this.getPublicImageCount(this.userId);
     });
-  }
-
-  changeTab(tab: 'public' | 'all'): void {
-    this.selectedTab = tab;
-    this.pageNumber = 1;
-    this.loadUserImages();
-  }
-
-  loadUserImages(): void {
-    const fetchImages = this.selectedTab === 'public'
-      ? this.imageGeneratorService.getPublicImagesByUserId(this.userId, this.pageNumber, this.pageSize)
-      : this.imageGeneratorService.getImagesByUserId(this.userId, this.pageNumber, this.pageSize);
-  
-    fetchImages.subscribe(
-      (response: { userImages: Image[], totalPages: number }) => {
-        this.userImages = response.userImages;
-        this.totalPages = response.totalPages;
-      },
-      (error) => {
-        console.error('Error loading user images', error);
-      }
-    );
   }
 
   loadUserProfile(id: string): void {
@@ -124,32 +87,6 @@ export class UserProfileComponent implements OnInit{
         console.error(error);
       }
     )
-  }
-
-  goToPreviousPage(): void {
-    if (this.pageNumber > 1) {
-      this.pageNumber--;
-      this.loadUserImages();
-    }
-  }
-
-  goToNextPage(): void {
-    if (this.pageNumber < this.totalPages) {
-      this.pageNumber++;
-      this.loadUserImages();
-    }
-  }
-
-  showImageModal(image: Image) {
-    this.modalService.openModal(image, this.isAllowToDelete);
-  }
-
-  onImageDeleted(id: string) {
-    this.userImages = this.userImages.filter(image => image.id !== id);
-
-    if (this.userImages.length < this.pageSize && this.pageNumber < this.totalPages) {
-      this.loadUserImages();
-    }
   }
 
   editProfile() {
