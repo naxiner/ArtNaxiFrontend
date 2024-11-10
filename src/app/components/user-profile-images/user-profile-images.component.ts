@@ -61,7 +61,7 @@ export class UserProfileImagesComponent {
     );
   }
 
-  showImageModal(image: Image) {
+  showImageModal(image: Image): void {
     this.modalService.openModal(image, this.isAllowToDelete);
   }
 
@@ -79,7 +79,7 @@ export class UserProfileImagesComponent {
     }
   }
 
-  onImageDeleted(id: string) {
+  onImageDeleted(id: string): void {
     this.userImages = this.userImages.filter(image => image.id !== id);
 
     if (this.userImages.length < this.pageSize && this.pageNumber < this.totalPages) {

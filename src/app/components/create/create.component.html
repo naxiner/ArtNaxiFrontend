@@ -1,104 +1,10 @@
 <h2 class="text-center my-5">Create image</h2>
 
 <div class="mb-3">
-    <div class="w-75 mx-auto">
-        <div class="alert alert-danger text-center" *ngIf="errorMessage != ''">
-            {{ errorMessage }}
-        </div>
-        <form (ngSubmit)="onSubmit()" #createForm="ngForm" class="mb-3 border rounded-4 p-4">
-            <div class="row">
-                <div class="col">
-                    <div class="mb-3">
-                        <label for="promptTextarea" class="form-label">Prompt</label>
-                        <textarea class="form-control" [(ngModel)]="sdRequest.prompt" name="prompt" id="promptTextarea" rows="2"></textarea>
-                    </div>
-            
-                    <div class="mb-3">
-                        <label for="negativePromptTextarea" class="form-label">Negative Prompt</label>
-                        <textarea class="form-control" [(ngModel)]="sdRequest.negative_prompt" name="negativePrompt" id="negativePromptTextarea" rows="1"></textarea>
-                    </div>
-                </div>
-                
-                <div class="col">
-                    <div class="mb-3">
-                        <label for="styleSelect" class="form-label">Select Style</label>
-                        <select id="styleSelect" [(ngModel)]="sdRequest.styles" name="styles" class="form-select">
-                            <option *ngFor="let style of styles" [value]="style">{{ style }}</option>
-                        </select>
-                    </div>
-                    
-                    <div class="mb-3 row text-center">
-                        <div class="col">
-                            <label for="width" class="form-label">Width</label>
-                            <input type="number" class="form-control" [(ngModel)]="sdRequest.width" name="width" id="width" placeholder="Enter width">
-                        </div>
-    
-                        <div class="col-3">
-                            <label>Reverse</label>
-                            <button class="btn btn-secondary mt-2" type="button" (click)="reverseResolution()">
-                                <i class="bi bi-repeat"></i>
-                            </button>
-                        </div>
-    
-                        <div class="col">
-                            <label for="height" class="form-label">Height</label>
-                            <input type="number" class="form-control" [(ngModel)]="sdRequest.height" name="height" id="height" placeholder="Enter height">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion mb-3" id="accordionPanelAdditionalSettings">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse" aria-expanded="false">
-                                Additional Settings
-                            </button>
-                        </h2>
-                        
-                        <div id="panelsStayOpen-collapse" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                                <div class="mb-3 row">
-                                    <div class="col">
-                                        <label for="steps" class="form-label">Steps</label>
-                                        <input type="number" class="form-control" [(ngModel)]="sdRequest.steps" name="steps" id="steps" placeholder="Enter steps">
-                                    </div>
-                                    <div class="col">
-                                        <label for="cfgScale" class="form-label">CFG Scale</label>
-                                        <input type="number" class="form-control" [(ngModel)]="sdRequest.cfg_scale" name="cfgScale" id="cfgScale" placeholder="Enter CFG">
-                                    </div>
-                                    <div class="col">
-                                        <label for="seed" class="form-label">Seed</label>
-                                        <input type="number" class="form-control" [(ngModel)]="displayedSeed" (input)="validateSeed()"
-                                            name="seed" id="seed" placeholder="Enter seed" min="-1" max="2147483647" pattern="^-?[0-9]{1,10}$">
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="samplerSelect" class="form-label">Select Sampler</label>
-                                    <select id="samplerSelect" [(ngModel)]="sdRequest.sampler_name" name="samplerName" class="form-select">
-                                        <option value="DPM++ SDE">DPM++ SDE</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="schedulerSelect" class="form-label">Select Scheduler</label>
-                                    <select id="schedulerSelect" [(ngModel)]="sdRequest.scheduler" name="scheduler" class="form-select">
-                                        <option value="Karras">Karras</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-grid mx-auto">
-                    <button [disabled]="isGenerating" [disabled]="createForm.invalid" type="submit" class="btn btn-primary">
-                        <div *ngIf="isGenerating" class="spinner-border spinner-border-sm" role="status"></div>
-                        {{ isGenerating ? 'Generating...' : 'Generate' }}
-                    </button>
-                </div>
-            </div>
-        </form>
+    <div>
+        <app-create-form
+            [generatedImages]="generatedImages">
+        </app-create-form>
     </div>
 
     <div *ngIf="generatedImages.length" class="position-relative d-flex align-items-center overflow-hidden border rounded-4 py-3" style="height: 350px;">
