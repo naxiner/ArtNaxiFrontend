@@ -14,6 +14,7 @@ import { UserDataService } from '../../services/user-data.service';
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated: boolean = false;
+  isAdmin: boolean = false;
   userId: string | null = null;
   username: string | null = null;
   userAvatarUrl: string | null = null;
@@ -38,6 +39,10 @@ export class NavbarComponent implements OnInit {
       if (authStatus) {
         this.userId = this.authService.getUserIdFromToken();
         this.username = this.authService.getUserNameFromToken();
+        
+        if (this.authService.getUserRoleFromToken() === 'Admin') {
+          this.isAdmin = true;
+        }
         
         if (!this.userAvatarUrl && this.userId) {
           this.userProfileService.getUserProfileAvatar(this.userId).subscribe((response: { userAvatarUrl: string }) => {

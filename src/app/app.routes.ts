@@ -7,9 +7,11 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { CreateComponent } from './components/create/create.component';
 import { guestGuard } from './guards/guest.guard';
 import { authGuard } from './guards/auth.guard';
+import { UserManagementComponent } from './components/user-management/user-management.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
+    { path: 'admin/users', component: UserManagementComponent},
     { path: 'user/register', component: RegisterComponent, canActivate: [guestGuard] },
     { path: 'user/login', component: LoginComponent, canActivate: [guestGuard] },
     { path: 'profile/:id', component: UserProfileComponent },

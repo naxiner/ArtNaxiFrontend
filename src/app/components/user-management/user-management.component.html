@@ -1,0 +1,34 @@
+<h2 class="text-center my-5">User Management</h2>
+
+<div class="card">
+    <div class="card-header">
+        <p class="fs-4">Overview</p>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Register date</th>
+                    <th>Updated date</th>
+                    <th>Ban status</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>{{ user.createdAt }}</td>
+                    <td>{{ user.updatedAt }}</td>
+                    <td>{{ user.isBanned }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
