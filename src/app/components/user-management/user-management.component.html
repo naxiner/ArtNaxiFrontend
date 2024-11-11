@@ -15,7 +15,6 @@
                     <th>Register date</th>
                     <th>Updated date</th>
                     <th>Ban status</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,12 +22,13 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.role }}</td>
-                    <td>{{ user.createdAt }}</td>
-                    <td>{{ user.updatedAt }}</td>
-                    <td>{{ user.isBanned }}</td>
+                    <td class="text-center">{{ user.role }}</td>
+                    <td class="text-center">{{ user.createdAt | date:'dd-MM-yyyy' }}</td>
+                    <td class="text-center">{{ user.updatedAt | date:'dd-MM-yyyy' }}</td>
                     <td class="text-center align-content-center">
                         <button (click)="banUnban(user.id, user.isBanned)" class="btn btn-sm" [ngClass]="{'btn-danger': !user.isBanned, 'btn-success': user.isBanned}">
+                            <i *ngIf="user.isBanned" class="bi bi-check-circle"></i>
+                            <i *ngIf="!user.isBanned" class="bi bi-ban"></i>
                             {{ user.isBanned ? 'Unban' : 'Ban' }}
                         </button>
                     </td>
