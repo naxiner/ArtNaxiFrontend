@@ -28,12 +28,27 @@ export class UserManagementComponent {
     this.loadUsers();
   };
 
-
   loadUsers(): void {
     this.userService.getAllUsers(this.currentPage, this.pageSize).subscribe({
       next: (response) => {
         this.users = response.users;
         this.totalPages = response.totalPages;
+      },
+      error: (err) => {
+        console.log(err.error);
+      }
+    });
+  }
+
+  banUnban(id: string, isBanned: boolean): void {
+    const request = isBanned ? this.userService.unbanUser(id) : this.userService.banUser(id);
+
+    request.subscribe({
+      next: (response) => {
+        const user = this.users.find(u => u.id === id);
+        if (user) {
+            user.isBanned = !isBanned;
+        }
       },
       error: (err) => {
         console.log(err.error);
