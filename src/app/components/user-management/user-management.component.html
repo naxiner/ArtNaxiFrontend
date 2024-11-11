@@ -1,11 +1,11 @@
 <h2 class="text-center my-5">User Management</h2>
 
-<div class="card">
+<div class="card mb-3">
     <div class="card-header">
         <p class="fs-4">Overview</p>
     </div>
     <div class="card-body">
-        <table class="table table-hover">
+        <table class="table table-sm table-hover">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -15,7 +15,7 @@
                     <th>Register date</th>
                     <th>Updated date</th>
                     <th>Ban status</th>
-
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -27,8 +27,29 @@
                     <td>{{ user.createdAt }}</td>
                     <td>{{ user.updatedAt }}</td>
                     <td>{{ user.isBanned }}</td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
     </div>
+</div>
+
+<div *ngIf="users.length">
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" type="button" (click)="previousPage()" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i + 1">
+                <a class="page-link" type="button" (click)="currentPage = i + 1; loadUsers()">{{ i + 1 }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" type="button" (click)="nextPage()" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>

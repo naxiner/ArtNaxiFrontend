@@ -12,6 +12,11 @@ import { User } from '../../../models/user';
   styleUrl: './user-management.component.css'
 })
 export class UserManagementComponent {
+  currentPage: number = 1;
+  pageSize: number = 10;
+  totalUsers: number = 0;
+  totalPages: number = 0;
+  
   users: User[] = [];
 
   constructor(
@@ -20,14 +25,33 @@ export class UserManagementComponent {
   ) { }
 
   ngOnInit(): void {
-    this.userService.getAllUsers().subscribe({
-      next: (data) => {
-        this.users = data.users;
-        console.log(this.users);
+    this.loadUsers();
+  };
+
+
+  loadUsers(): void {
+    this.userService.getAllUsers(this.currentPage, this.pageSize).subscribe({
+      next: (response) => {
+        this.users = response.users;
+        this.totalPages = response.totalPages;
       },
       error: (err) => {
         console.log(err.error);
-      },
+      }
+    });
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+        this.currentPage--;
+        this.loadUsers();
     }
-  )};
+  } 
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.loadUsers();
+    }
+  }
 }
