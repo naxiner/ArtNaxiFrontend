@@ -27,6 +27,13 @@ export class UserService {
     return this.http.put<any>(`${this.apiUrl}/${id}`, request, { headers });
   }
 
+  setUserRole(id: string, role: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post<any>(`${this.apiUrl}/${id}/role?role=${role}`, { headers });
+  }
+
   banUser(id: string): Observable<any> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
