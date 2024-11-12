@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
 import { User } from '../../../models/user';
@@ -7,7 +8,7 @@ import { User } from '../../../models/user';
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.css'
 })
@@ -18,6 +19,7 @@ export class UserManagementComponent {
   totalPages: number = 0;
   
   users: User[] = [];
+  roles: string[] = ['User', 'Admin', 'Moderator'];
 
   constructor(
     private userService: UserService,
@@ -34,6 +36,15 @@ export class UserManagementComponent {
         this.users = response.users;
         this.totalPages = response.totalPages;
       },
+      error: (err) => {
+        console.log(err.error);
+      }
+    });
+  }
+
+  updateRole(user: User) {
+    this.userService.setUserRole(user.id, user.role).subscribe({
+      next: () => { },
       error: (err) => {
         console.log(err.error);
       }

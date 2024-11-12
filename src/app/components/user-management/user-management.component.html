@@ -22,7 +22,11 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
-                    <td class="text-center">{{ user.role }}</td>
+                    <td class="text-center">
+                        <select class="form-select form-select-sm" [(ngModel)]="user.role" (change)="updateRole(user)">
+                            <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+                        </select>
+                    </td>
                     <td class="text-center">{{ user.createdAt | date:'dd-MM-yyyy' }}</td>
                     <td class="text-center">{{ user.updatedAt | date:'dd-MM-yyyy' }}</td>
                     <td class="text-center align-content-center">
