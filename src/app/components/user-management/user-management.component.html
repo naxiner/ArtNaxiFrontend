@@ -15,6 +15,7 @@
                     <th>Register date</th>
                     <th>Updated date</th>
                     <th>Ban status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +35,11 @@
                             <i *ngIf="user.isBanned" class="bi bi-check-circle"></i>
                             <i *ngIf="!user.isBanned" class="bi bi-ban"></i>
                             {{ user.isBanned ? 'Unban' : 'Ban' }}
+                        </button>
+                    </td>
+                    <td>
+                        <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>Delete
                         </button>
                     </td>
                 </tr>

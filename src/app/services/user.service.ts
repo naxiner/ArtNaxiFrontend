@@ -47,4 +47,11 @@ export class UserService {
 
     return this.http.post<any>(`${this.apiUrl}/${id}/unban`, { headers });
   }
+
+  deleteUser(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+  }
 }

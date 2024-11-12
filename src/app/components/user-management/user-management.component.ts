@@ -67,6 +67,17 @@ export class UserManagementComponent {
     });
   }
 
+  deleteUser(id: string): void {
+    this.userService.deleteUser(id).subscribe({
+      next: () => {
+        this.onUserDeleted(id);
+       },
+      error: (err) => {
+        console.log(err.error);
+      }
+    });
+  }
+
   previousPage(): void {
     if (this.currentPage > 1) {
         this.currentPage--;
@@ -78,6 +89,14 @@ export class UserManagementComponent {
     if (this.currentPage < this.totalPages) {
         this.currentPage++;
         this.loadUsers();
+    }
+  }
+
+  onUserDeleted(id: string): void {
+    this.users = this.users.filter(user => user.id !== id);
+
+    if (this.users.length < this.pageSize && this.currentPage < this.totalPages) {
+      this.loadUsers();
     }
   }
 }
