@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SDRequest } from '../../../models/sd-request';
 import { ImageGeneratorService } from '../../services/image-generator.service';
@@ -13,7 +13,7 @@ import { Image } from '../../../models/image';
   templateUrl: './create-form.component.html',
   styleUrl: './create-form.component.css'
 })
-export class CreateFormComponent {
+export class CreateFormComponent implements OnInit {
   @Input() generatedImages!: Image[];
 
   @ViewChild('imageContainer', { static: false }) imageContainer!: ElementRef;
