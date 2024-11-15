@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EditUserRequest } from '../../../models/edit-user-request';
@@ -13,7 +13,7 @@ import { UserDataService } from '../../services/user-data.service';
   templateUrl: './user-profile-edit.component.html',
   styleUrl: './user-profile-edit.component.css'
 })
-export class UserProfileEditComponent {
+export class UserProfileEditComponent implements OnInit {
   @Input() userId!: string;
   @Input() user!: any;
   @Input() avatarPreview!: string;
