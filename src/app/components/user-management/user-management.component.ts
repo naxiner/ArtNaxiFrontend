@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
@@ -12,7 +12,7 @@ import { User } from '../../../models/user';
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.css'
 })
-export class UserManagementComponent {
+export class UserManagementComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 10;
   totalUsers: number = 0;
