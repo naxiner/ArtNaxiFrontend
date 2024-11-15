@@ -2,7 +2,10 @@
 
 <div class="mb-3">
     <div>
-        <app-create-form [generatedImages]="generatedImages"></app-create-form>
+        <app-create-form 
+            [generatedImages]="generatedImages"
+            (imageGenerated)="onImageGenerated()"
+        ></app-create-form>
     </div>
 
     <div *ngIf="generatedImages.length">

@@ -23,7 +23,7 @@ export class CreateImagesComponent {
     this.modalService.imageDeleted$.subscribe(imageId => {
       this.onImageDeleted(imageId);
     });
-   }
+  }
 
   scrollLeft() {
     this.imageContainer.nativeElement.scrollBy({
@@ -34,6 +34,13 @@ export class CreateImagesComponent {
   scrollRight() {
     this.imageContainer.nativeElement.scrollBy({
       left: 500,
+    });
+  }
+
+  scrollToStart() {
+    this.imageContainer.nativeElement.scrollTo({
+      left: 0,
+      behavior: 'smooth',
     });
   }
 

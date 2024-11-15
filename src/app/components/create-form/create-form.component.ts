@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SDRequest } from '../../../models/sd-request';
 import { ImageGeneratorService } from '../../services/image-generator.service';
 import { ActivatedRoute } from '@angular/router';
 import { Image } from '../../../models/image';
+import { StyleService } from '../../services/style.service';
+import { Style } from '../../../models/style';
 
 @Component({
   selector: 'app-create-form',
@@ -16,7 +18,7 @@ import { Image } from '../../../models/image';
 export class CreateFormComponent implements OnInit {
   @Input() generatedImages!: Image[];
 
-  @ViewChild('imageContainer', { static: false }) imageContainer!: ElementRef;
+  @Output() imageGenerated = new EventEmitter();
 
   sdRequest: SDRequest = {
     prompt: '',
@@ -31,14 +33,20 @@ export class CreateFormComponent implements OnInit {
     height: 512
   }
 
+  styles: Style[] = [];
+
   isGenerating: boolean = false;
   displayedSeed: number = -1;
-  errorMessage: string = '';
 
-  styles: string[] = ['Negative'];
+  currentPage: number = 1;
+  pageSize: number = 100;
+  totalPages: number = 0;
+
+  errorMessage: string = '';
 
   constructor(
     private sdService: ImageGeneratorService,
+    private styleService: StyleService,
     private route: ActivatedRoute
   ) { }
 
@@ -46,6 +54,8 @@ export class CreateFormComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.sdRequest.prompt = params['prompt'] || '';
     });
+
+    this.loadStyles();
   }
 
   onSubmit(): void {
@@ -73,11 +83,8 @@ export class CreateFormComponent implements OnInit {
           request: response.request,
           isPublic: response.isPublic
         });
-        if (this.imageContainer && this.imageContainer.nativeElement) {
-          this.imageContainer.nativeElement.scrollTo({
-            left: 0,
-          });
-        }
+
+        this.imageGenerated.emit();
       },
       error: (err) => {
         console.log(err.error);
@@ -86,6 +93,18 @@ export class CreateFormComponent implements OnInit {
         this.isGenerating = false;
       }
     })
+  }
+
+  loadStyles(): void {
+    this.styleService.getAllStyles(this.currentPage, this.pageSize).subscribe({
+      next: (response) => {
+        this.styles = response.styles;
+        this.totalPages = response.totalPages;
+      },
+      error: (err) => {
+        console.log(err.error);
+      }
+    });
   }
 
   reverseResolution(): void {

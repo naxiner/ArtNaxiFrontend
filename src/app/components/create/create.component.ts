@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CreateFormComponent } from '../create-form/create-form.component';
@@ -13,11 +13,17 @@ import { CreateImagesComponent } from "../create-images/create-images.component"
   styleUrl: './create.component.css'
 })
 export class CreateComponent {
+  @ViewChild(CreateImagesComponent) createImagesComponent!: CreateImagesComponent;
+
   generatedImages: Image[] = [];
 
   constructor() { }
 
   onImageDeleted(imageId: string) {
     this.generatedImages = this.generatedImages.filter(image => image.id !== imageId);
+  }
+
+  onImageGenerated() {
+    this.createImagesComponent.scrollToStart();
   }
 }
