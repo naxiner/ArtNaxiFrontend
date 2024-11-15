@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ImageGeneratorService } from '../../services/image-generator.service';
 import { ModalService } from '../../services/modal.service';
 import { Image } from '../../../models/image';
@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './user-profile-images.component.html',
   styleUrl: './user-profile-images.component.css'
 })
-export class UserProfileImagesComponent {
+export class UserProfileImagesComponent implements OnInit {
   @Input() userId!: string;
   @Input() isAllowToDelete = false;
 
