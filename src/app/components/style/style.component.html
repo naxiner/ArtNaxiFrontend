@@ -1,1 +1,58 @@
-<p>style works!</p>
+<h2 class="text-center my-5">Style Management</h2>
+
+<div *ngIf="isAddFormVisible">
+    <app-style-add
+        (formClosed)="toggleAddForm()"
+        (styleAdded)="onStyleAdded()">
+    </app-style-add>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <button class="btn btn-sm btn-success" (click)="toggleAddForm()">
+            <i class="bi bi-plus-circle"></i>Add new Style
+        </button>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let style of styles">
+                    <td>{{ style.id }}</td>
+                    <td>{{ style.name }}</td>
+                    <td>
+                        <button (click)="deleteStyle(style.id)" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="styles.length">
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" type="button" (click)="previousPage()" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i + 1">
+                <a class="page-link" type="button" (click)="currentPage = i + 1; loadStyles()">{{ i + 1 }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" type="button" (click)="nextPage()" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

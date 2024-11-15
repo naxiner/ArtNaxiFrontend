@@ -20,7 +20,7 @@
                 <div class="mb-3">
                     <label for="styleSelect" class="form-label">Select Style</label>
                     <select id="styleSelect" [(ngModel)]="sdRequest.styles" name="styles" class="form-select">
-                        <option *ngFor="let style of styles" [value]="style">{{ style }}</option>
+                        <option *ngFor="let style of styles" [value]="style.name">{{ style.name }}</option>
                     </select>
                 </div>
                 
