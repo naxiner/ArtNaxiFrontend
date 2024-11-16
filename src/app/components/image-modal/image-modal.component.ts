@@ -66,7 +66,7 @@ export class ImageModalComponent {
         this.modalService.notifyVisibilityChanged(id);
       },
       (error) => {
-        console.error('Error deleting image', error);
+        console.error('Error occurred while trying to make the image public', error);
       }
     );
   }
@@ -81,7 +81,7 @@ export class ImageModalComponent {
         this.modalService.notifyVisibilityChanged(id);
       },
       (error) => {
-        console.error('Error deleting image', error);
+        console.error('Error occurred while trying to make the image private', error);
       }
     );
   }
