@@ -46,12 +46,12 @@ export class UserProfileEditComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        this.errorMessage = 'File size should not exceed 5MB';
+        this.errorMessage = 'File size should not exceed 5MB.';
         return;
       }
 
       if (!file.type.match(/image\/(jpeg|png)/)) {
-        this.errorMessage = 'Only image files (JPEG, PNG) are allowed';
+        this.errorMessage = 'Only image files (JPEG, PNG) are allowed.';
         return;
       }
 
@@ -79,13 +79,13 @@ export class UserProfileEditComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error uploading profile image', error);
-          this.errorMessage = 'Error uploading profile image';
+          this.errorMessage = 'Error uploading profile image.';
         }
       });
     }
   }
 
-  onEditSubmit() {
+  onEditSubmit(): void {
     this.userService.editUser(this.userId, this.editUserRequest).subscribe({
       next: () => {
         this.userDataService.setUsername(this.editUserRequest.username);
@@ -94,12 +94,27 @@ export class UserProfileEditComponent implements OnInit {
         this.errorMessage = '';
       },
       error: (error) => {
-        this.errorMessage = error.error?.message || 'Error updating profile';
+        this.errorMessage = error.error?.message || 'Error updating profile.';
       }
     });
   }
 
-  onCancel() {
+  onDelete(): void {
+    this.userProfileService.deleteUserAvatar(this.userId).subscribe({
+      next: () => {
+        const defaultAvatarUrl = '/default-avatar-512.png';
+        this.userDataService.setAvatarUrl(defaultAvatarUrl);
+        this.avatarPreview = '';
+        this.profileUpdated.emit(this.user);
+        this.errorMessage = '';
+      },
+      error: (error) => {
+        this.errorMessage = error.error?.message || 'Error deleting profile image.';
+      }
+    });
+  }
+
+  onCancel(): void {
     this.cancelEdit.emit();
   }
 }

@@ -26,6 +26,13 @@ export class UserProfileService {
     return this.http.put<any>(`${this.apiUrl}/avatar/${id}`, formData, { headers });
   }
 
+  deleteUserAvatar(id: string): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.delete<any>(`${this.apiUrl}/avatar/${id}`, { headers });
+  }
+
   getPublicImageCount(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}/public-image-count`)
   }
