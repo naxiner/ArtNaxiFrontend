@@ -14,20 +14,20 @@ export class ImageGeneratorService {
 
   constructor(private http: HttpClient) { }
 
-  getAllImages(pageNumber: number, pageSize: number): Observable<Image[]> {
-    return this.http.get<Image[]>(`${this.apiUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  getAllImages(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
-  getRecentImages(pageNumber: number, pageSize: number): Observable<Image[]> {
-    return this.http.get<Image[]>(`${this.apiUrl}/recent?pageNumber=${pageNumber}&pageSize=${pageSize}`)
+  getRecentImages(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/recent?pageNumber=${pageNumber}&pageSize=${pageSize}`)
   }
 
-  getRecentPublicImages(pageNumber: number, pageSize: number): Observable<Image[]> {
-    return this.http.get<Image[]>(`${this.apiUrl}/recent/public?pageNumber=${pageNumber}&pageSize=${pageSize}`)
+  getRecentPublicImages(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/recent/public?pageNumber=${pageNumber}&pageSize=${pageSize}`)
   }
 
-  getImageById(id: string): Observable<Image> {
-    return this.http.get<Image>(`${this.apiUrl}/${id}`);
+  getImageById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
   getImagesByUserId(userId: string, pageNumber: number, pageSize: number) {

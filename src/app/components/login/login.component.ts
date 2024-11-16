@@ -41,20 +41,20 @@ export class LoginComponent {
               this.errorMessage = 'Validation error occurred';
             }
           } else {
-            this.errorMessage = err.error || 'Bad Request';
+            this.errorMessage = err.error.message || 'Bad Request';
           }
         }
       
         else if (err.status === 401) {
-          this.errorMessage = err.error || 'Invalid Username or Password';
+          this.errorMessage = err.error.message || 'Invalid Username or Password';
         }
 
         else if (err.status === 403) {
-          this.errorMessage = err.error || 'Your account has been banned.';
+          this.errorMessage = err.error.message || 'Your account has been banned.';
         }
       
         else {
-          this.errorMessage = `Error: ${err.message}`;
+          this.errorMessage = `Error: ${err.error.message}`;
         }
       }
     });

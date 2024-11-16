@@ -69,8 +69,8 @@ export class UserProfileComponent implements OnInit{
 
   loadUserProfile(id: string): void {
     this.userProfileService.getUserProfile(id).subscribe(
-      (data) => {
-        this.user = data;
+      (response) => {
+        this.user = response.userProfileDto;
       },
       (error) => {
         console.error('Error loading user profile', error);

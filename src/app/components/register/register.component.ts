@@ -39,7 +39,7 @@ export class RegisterComponent {
             this.errorMessage = validationErrors.Password.join(', ');
           }
         } else {
-          this.errorMessage = `Error: ${err.error}`;
+          this.errorMessage = `Error: ${err.error.message}`;
         }
       }
     });

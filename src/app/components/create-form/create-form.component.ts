@@ -87,9 +87,12 @@ export class CreateFormComponent implements OnInit {
         this.imageGenerated.emit();
       },
       error: (err) => {
-        console.log(err.error);
+        this.errorMessage = err.error.message;
+        console.log(err.error.message);
+        this.isGenerating = false;
       },
       complete: () => {
+        this.errorMessage = '';
         this.isGenerating = false;
       }
     })
@@ -100,9 +103,11 @@ export class CreateFormComponent implements OnInit {
       next: (response) => {
         this.styles = response.styles;
         this.totalPages = response.totalPages;
+        this.errorMessage = '';
       },
       error: (err) => {
-        console.log(err.error);
+        this.errorMessage = err.error.message;
+        console.log(err.error.message);
       }
     });
   }

@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
 
     this.sdService.getRecentPublicImages(this.currentImagesPage, this.imagesPerPage).subscribe({
       next: (response) => {
-        this.generatedImages.push(...response);
+        this.generatedImages.push(...response.recentImages);
         this.organizeImages();
         this.currentImagesPage++;
         this.isLoadingImages = false;
