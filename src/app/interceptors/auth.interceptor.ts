@@ -15,6 +15,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError((error) => {
+
       if (error.status === 401) {
         return authService.refreshToken().pipe(
           switchMap((newToken) => {
@@ -28,6 +29,18 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           })
         );
       }
+
+      if (error.status === 403) {
+        const isBanned = error.error?.message?.includes('banned');
+
+        if (isBanned) {
+          alert(error.error.message);
+          authService.logout();
+
+          return throwError(() => new Error(error.error.message));
+        }
+      }
+
       return throwError(() => error);
     })
   );

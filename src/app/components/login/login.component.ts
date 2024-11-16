@@ -48,6 +48,10 @@ export class LoginComponent {
         else if (err.status === 401) {
           this.errorMessage = err.error || 'Invalid Username or Password';
         }
+
+        else if (err.status === 403) {
+          this.errorMessage = err.error || 'Your account has been banned.';
+        }
       
         else {
           this.errorMessage = `Error: ${err.message}`;
