@@ -1,9 +1,21 @@
 <h2 class="text-center my-5">User Management</h2>
 
+<div class="alert alert-danger text-center" *ngIf="errorMessage != ''">
+    {{ errorMessage }}
+</div>
 <div class="card mb-3">
     <div class="card-header">
         <p class="fs-4">Overview</p>
+        <div class="mb-3">
+            <input type="text" 
+                class="form-control" 
+                placeholder="Search users..." 
+                [(ngModel)]="searchQuery" 
+                (input)="onSearchChange()" />
+        </div>
     </div>
+
+
     <div class="card-body">
         <table class="table table-sm table-hover">
             <thead>

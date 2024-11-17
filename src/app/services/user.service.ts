@@ -20,6 +20,13 @@ export class UserService {
     return this.http.get<any>(`${this.apiUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`, { headers });
   }
 
+  getUsersByQuery(query: string, pageNumber: number, pageSize: number): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any>(`${this.apiUrl}/search?query=${query}&pageNumber=${pageNumber}&pageSize=${pageSize}`, { headers })
+  }
+
   editUser(id: string, request: EditUserRequest): Observable<any> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
