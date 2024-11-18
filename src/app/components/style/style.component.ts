@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { Style } from '../../../models/style';
 import { StyleService } from '../../services/style.service';
 import { StyleAddComponent } from '../style-add/style-add.component';
@@ -8,7 +9,7 @@ import { StyleAddComponent } from '../style-add/style-add.component';
 @Component({
   selector: 'app-style',
   standalone: true,
-  imports: [CommonModule, FormsModule, StyleAddComponent],
+  imports: [CommonModule, FormsModule, StyleAddComponent, SweetAlert2Module],
   templateUrl: './style.component.html',
   styleUrl: './style.component.css'
 })
@@ -43,7 +44,7 @@ export class StyleComponent implements OnInit {
     this.styleService.deleteStyleById(id).subscribe({
       next: () => {
         this.onStyleDeleted(id);
-       },
+      },
       error: (err) => {
         console.log(err.error);
       }
@@ -52,15 +53,15 @@ export class StyleComponent implements OnInit {
 
   previousPage(): void {
     if (this.currentPage > 1) {
-        this.currentPage--;
-        this.loadStyles();
+      this.currentPage--;
+      this.loadStyles();
     }
   } 
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
-        this.currentPage++;
-        this.loadStyles();
+      this.currentPage++;
+      this.loadStyles();
     }
   }
 
