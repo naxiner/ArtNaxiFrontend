@@ -50,7 +50,7 @@ export class LoginComponent {
         }
 
         else if (err.status === 403) {
-          this.errorMessage = err.error.message || 'Your account has been banned.';
+          this.errorMessage = err.error || 'Your account has been banned.';
         }
       
         else {
