@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { EditUserRequest } from '../../../models/edit-user-request';
 import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
@@ -9,7 +10,7 @@ import { UserDataService } from '../../services/user-data.service';
 @Component({
   selector: 'app-user-profile-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SweetAlert2Module],
   templateUrl: './user-profile-edit.component.html',
   styleUrl: './user-profile-edit.component.css'
 })

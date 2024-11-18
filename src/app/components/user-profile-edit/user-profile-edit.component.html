@@ -14,9 +14,13 @@
         <div class="mb-3">
           <input type="file" class="form-control me-2" id="formFile" (change)="onFileSelected($event)">
         </div>
-        <div class="d-flex justify-content-between">
-          <button type="button" class="btn btn-danger" (click)="onDelete()">Delete Profile Image</button>
-          <button type="submit" [disabled]="!selectedFile" class="btn btn-success">Save Profile Image</button>
+        <div class="d-flex">
+          <button type="button" class="btn btn-danger"
+            [swal]="{ title: 'Confirmation', text: 'Are you sure you want to delete profile image?',
+            showCancelButton: true }" (confirm)="onDelete()">Delete Profile Image</button>
+          <button type="submit" [disabled]="!selectedFile" class="btn btn-success ms-auto"
+            [swal]="{ title: 'Confirmation', text: 'Are you sure you want to save profile image?',
+            showCancelButton: true }" (confirm)="onAddProfileImage()">Save Profile Image</button>
         </div>
       </div>
     </form>
@@ -62,7 +66,10 @@
       </div>
       
       <div class="d-flex justify-content-between">
-        <button type="submit" [disabled]="editUserForm.invalid" class="btn btn-success">Save</button>
+        <button type="submit" [disabled]="editUserForm.invalid"
+          [swal]="{ title: 'Confirmation', text: 'Are you sure you want to save changes?',
+          showCancelButton: true }" (confirm)="onEditSubmit()" class="btn btn-success">Save
+        </button>
         <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
       </div>
     </form>
