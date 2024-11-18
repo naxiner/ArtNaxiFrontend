@@ -15,7 +15,7 @@
           <input type="file" class="form-control me-2" id="formFile" (change)="onFileSelected($event)">
         </div>
         <div class="d-flex justify-content-between">
-          <button class="btn btn-danger" (click)="onDelete()">Delete Profile Image</button>
+          <button type="button" class="btn btn-danger" (click)="onDelete()">Delete Profile Image</button>
           <button type="submit" [disabled]="!selectedFile" class="btn btn-success">Save Profile Image</button>
         </div>
       </div>
