@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ImageGeneratorService } from '../../services/image-generator.service';
 import { ModalService } from '../../services/modal.service';
 import { Image } from '../../../models/image';
@@ -11,7 +12,7 @@ declare var bootstrap: any;
 @Component({
   selector: 'image-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SweetAlert2Module],
   templateUrl: './image-modal.component.html',
   styleUrl: './image-modal.component.css'
 })
