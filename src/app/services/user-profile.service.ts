@@ -33,6 +33,10 @@ export class UserProfileService {
     return this.http.delete<any>(`${this.apiUrl}/avatar/${id}`, { headers });
   }
 
+  getAllImageCount(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}/all-image-count`)
+  }
+
   getPublicImageCount(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}/public-image-count`)
   }

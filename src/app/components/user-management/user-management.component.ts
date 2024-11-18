@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { UserProfileService } from '../../services/user-profile.service';
 import { User } from '../../../models/user';
 
 @Component({
@@ -16,7 +17,7 @@ export class UserManagementComponent implements OnInit {
   errorMessage = '';
 
   currentPage: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 12;
   totalUsers: number = 0;
   totalPages: number = 0;
 
@@ -25,8 +26,12 @@ export class UserManagementComponent implements OnInit {
   
   users: User[] = [];
   roles: string[] = ['User', 'Admin', 'Moderator'];
+  imageCounts: Map<string, number> = new Map();
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private userProfileService: UserProfileService
+  ) { }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -37,8 +42,20 @@ export class UserManagementComponent implements OnInit {
       next: (response) => {
         this.users = response.users;
         this.totalPages = response.totalPages;
-        this.errorMessage = '';
         this.isSearching = false;
+
+        this.users.forEach(user => {
+          this.userProfileService.getAllImageCount(user.id).subscribe({
+              next: (count) => {
+                this.imageCounts.set(user.id, count.allImageCount);
+              },
+              error: (err) => {
+                this.errorMessage = err.error.message;
+                this.imageCounts.set(user.id, 0);
+              }
+          });
+        });
+        this.errorMessage = '';
       },
       error: (err) => {
         this.errorMessage = err.error.message;
@@ -97,6 +114,12 @@ export class UserManagementComponent implements OnInit {
       error: (err) => {
         this.errorMessage = err.error.message;
       }
+    });
+  }
+  
+  copyFullId(id: string): void {
+    navigator.clipboard.writeText(id).catch((err) => {
+      console.error('Failed to copy ID:', err);
     });
   }
 

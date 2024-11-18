@@ -19,37 +19,38 @@
     <div class="card-body">
         <table class="table table-sm table-hover">
             <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Email</th>
+                <tr class="text-center">
+                    <th class="text-start">Id</th>
+                    <th class="text-start">Username</th>
+                    <th class="text-start">Email</th>
                     <th>Role</th>
                     <th>Register date</th>
                     <th>Updated date</th>
-                    <th>Ban status</th>
+                    <th>Images</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let user of users">
-                    <td>{{ user.id }}</td>
+                    <td (click)="copyFullId(user.id)" style="cursor: pointer;" title="Click to copy">
+                        {{ user.id | slice:0:8 }}...
+                    </td>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
-                    <td class="text-center">
+                    <td class="text-center" style="max-width: 80px;">
                         <select class="form-select form-select-sm" [(ngModel)]="user.role" (change)="updateRole(user)">
                             <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
                         </select>
                     </td>
                     <td class="text-center">{{ user.createdAt | date:'dd-MM-yyyy' }}</td>
                     <td class="text-center">{{ user.updatedAt | date:'dd-MM-yyyy' }}</td>
-                    <td class="text-center align-content-center">
-                        <button (click)="banUnban(user.id, user.isBanned)" class="btn btn-sm" [ngClass]="{'btn-danger': !user.isBanned, 'btn-success': user.isBanned}">
+                    <td class="text-center">{{ imageCounts.get(user.id) ?? 'Loading...' }}</td>
+                    <td>
+                        <button (click)="banUnban(user.id, user.isBanned)" class="btn btn-sm me-3" [ngClass]="{'btn-danger': !user.isBanned, 'btn-success': user.isBanned}">
                             <i *ngIf="user.isBanned" class="bi bi-check-circle"></i>
                             <i *ngIf="!user.isBanned" class="bi bi-ban"></i>
                             {{ user.isBanned ? 'Unban' : 'Ban' }}
                         </button>
-                    </td>
-                    <td>
                         <button [routerLink]="['/profile', user.id]" class="btn btn-sm btn-primary me-3">
                             <i class="bi bi-person-circle"></i>Profile
                         </button>
