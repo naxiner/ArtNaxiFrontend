@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
 import { User } from '../../../models/user';
@@ -9,7 +10,7 @@ import { User } from '../../../models/user';
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, SweetAlert2Module],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.css'
 })
