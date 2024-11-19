@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { Style } from '../../../models/style';
 import { StyleService } from '../../services/style.service';
+import { ToastrService } from 'ngx-toastr';
 import { StyleAddComponent } from '../style-add/style-add.component';
+import { Style } from '../../../models/style';
 
 @Component({
   selector: 'app-style',
@@ -22,7 +23,7 @@ export class StyleComponent implements OnInit {
 
   styles: Style[] = [];
 
-  constructor(private styleService: StyleService) { }
+  constructor(private styleService: StyleService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.loadStyles();
@@ -34,8 +35,8 @@ export class StyleComponent implements OnInit {
         this.styles = response.styles;
         this.totalPages = response.totalPages;
       },
-      error: (err) => {
-        console.log(err.error);
+      error: (error) => {
+        this.toastrService.error(error.message, "Error");
       }
     });
   }
@@ -44,9 +45,10 @@ export class StyleComponent implements OnInit {
     this.styleService.deleteStyleById(id).subscribe({
       next: () => {
         this.onStyleDeleted(id);
+        this.toastrService.success("Style was successfully deleted.", "Success");
       },
-      error: (err) => {
-        console.log(err.error);
+      error: (error) => {
+        this.toastrService.error(error.message, "Error");
       }
     });
   }
