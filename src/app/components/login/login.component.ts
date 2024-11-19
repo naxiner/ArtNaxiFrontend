@@ -38,23 +38,23 @@ export class LoginComponent {
             if (validationErrors.Password) {
               this.toastrService.error(validationErrors.Password.join(', '));
             } else {
-              this.toastrService.error('Validation error occurred');
+              this.toastrService.error('Validation error occurred', 'Error');
             }
           } else {
-            this.toastrService.error(error.error.message);
+            this.toastrService.error(error.error.message, 'Error');
           }
         }
       
         else if (error.status === 401) {
-          this.toastrService.error(error.error.message);
+          this.toastrService.error(error.error.message, 'Error');
         }
 
         else if (error.status === 403) {
-          this.toastrService.error(error.error.message || 'Your account has been banned.');
+          this.toastrService.error('Your account has been banned.', 'Error');
         }
       
         else {
-          this.toastrService.error(error.error.message);
+          this.toastrService.error(error.error.message, 'Error');
         }
       }
     });

@@ -36,7 +36,7 @@ export class StyleComponent implements OnInit {
         this.totalPages = response.totalPages;
       },
       error: (error) => {
-        this.toastrService.error(error.message, "Error");
+        this.toastrService.error(error.message, 'Error');
       }
     });
   }
@@ -45,10 +45,10 @@ export class StyleComponent implements OnInit {
     this.styleService.deleteStyleById(id).subscribe({
       next: () => {
         this.onStyleDeleted(id);
-        this.toastrService.success("Style was successfully deleted.", "Success");
+        this.toastrService.success('Style was successfully deleted.', 'Success');
       },
       error: (error) => {
-        this.toastrService.error(error.message, "Error");
+        this.toastrService.error(error.message, 'Error');
       }
     });
   }

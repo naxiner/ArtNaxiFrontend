@@ -26,10 +26,10 @@ export class StyleAddComponent {
     this.styleService.addStyle(this.style).subscribe({
       next: (response) => {
         this.styleAdded.emit();
-        this.toastrService.success(response.message, "Success");
+        this.toastrService.success(response.message, 'Success');
        },
       error: (error) => {
-        this.toastrService.error(error.message, "Error");
+        this.toastrService.error(error.message, 'Error');
       }
     });
   }

@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Image } from '../../../models/image';
 import { StyleService } from '../../services/style.service';
 import { Style } from '../../../models/style';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-form',
@@ -42,11 +43,10 @@ export class CreateFormComponent implements OnInit {
   pageSize: number = 100;
   totalPages: number = 0;
 
-  errorMessage: string = '';
-
   constructor(
     private sdService: ImageGeneratorService,
     private styleService: StyleService,
+    private toastrService: ToastrService,
     private route: ActivatedRoute
   ) { }
 
@@ -86,13 +86,11 @@ export class CreateFormComponent implements OnInit {
 
         this.imageGenerated.emit();
       },
-      error: (err) => {
-        this.errorMessage = err.error.message;
-        console.log(err.error.message);
+      error: (error) => {
+        this.toastrService.error(error.error.message, 'Error');
         this.isGenerating = false;
       },
       complete: () => {
-        this.errorMessage = '';
         this.isGenerating = false;
       }
     })
@@ -103,11 +101,9 @@ export class CreateFormComponent implements OnInit {
       next: (response) => {
         this.styles = response.styles;
         this.totalPages = response.totalPages;
-        this.errorMessage = '';
       },
-      error: (err) => {
-        this.errorMessage = err.error.message;
-        console.log(err.error.message);
+      error: (error) => {
+        this.toastrService.error(error.error.message, 'Error');
       }
     });
   }
@@ -126,12 +122,10 @@ export class CreateFormComponent implements OnInit {
   validateSeed(): void {
     if (this.displayedSeed < -1) {
       this.displayedSeed = -1;
-      this.errorMessage = 'Seed may not be smaller than: -1';
+      this.toastrService.error('Seed may not be smaller than: -1', 'Error');
     } else if (this.displayedSeed > 2147483647) {
       this.displayedSeed = 2147483647;
-      this.errorMessage = 'Seed may not be larger than: 2147483647';
-    } else {
-      this.errorMessage = '';
+      this.toastrService.error('Seed may not be larger than: 2147483647', 'Error');
     }
   }
 }

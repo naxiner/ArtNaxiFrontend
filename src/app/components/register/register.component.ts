@@ -37,10 +37,10 @@ export class RegisterComponent {
         if (error.error.errors) {
           const validationErrors = error.error.errors;
           if (validationErrors.Password) {
-            this.toastrService.error(validationErrors.Password.join(', '));
+            this.toastrService.error(validationErrors.Password.join(', '), 'Error');
           }
         } else {
-          this.toastrService.error(`Error: ${error.error.message}`);
+          this.toastrService.error(error.error.message, 'Error');
         }
       }
     });
