@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../../../models/user';
 
 @Component({
@@ -15,8 +16,6 @@ import { User } from '../../../models/user';
   styleUrl: './user-management.component.css'
 })
 export class UserManagementComponent implements OnInit {
-  errorMessage = '';
-
   currentPage: number = 1;
   pageSize: number = 12;
   totalUsers: number = 0;
@@ -31,6 +30,7 @@ export class UserManagementComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private toastrService: ToastrService,
     private userProfileService: UserProfileService
   ) { }
 
@@ -50,16 +50,15 @@ export class UserManagementComponent implements OnInit {
               next: (count) => {
                 this.imageCounts.set(user.id, count.allImageCount);
               },
-              error: (err) => {
-                this.errorMessage = err.error.message;
+              error: (error) => {
                 this.imageCounts.set(user.id, 0);
+                this.toastrService.error(error.error.message, 'Error');
               }
           });
         });
-        this.errorMessage = '';
       },
-      error: (err) => {
-        this.errorMessage = err.error.message;
+      error: (error) => {
+        this.toastrService.error(error.error.message, 'Error');
       }
     });
   }
@@ -69,22 +68,21 @@ export class UserManagementComponent implements OnInit {
       next: response => {
         this.users = response.users;
         this.totalPages = response.totalPages;
-        this.errorMessage = '';
         this.isSearching = true;
       },
-      error: (err) => {
-        this.errorMessage = err.error.message;
+      error: (error) => {
+        this.toastrService.error(error.error.message, 'Error');
       }
     });
   }
 
   updateRole(user: User) {
     this.userService.setUserRole(user.id, user.role).subscribe({
-      next: () => { 
-        this.errorMessage = '';
+      next: (response) => { 
+        this.toastrService.success(response.message, 'Success');
       },
-      error: (err) => {
-        this.errorMessage = err.error.message;
+      error: (error) => {
+        this.toastrService.error(error.error.message, 'Error');
       }
     });
   }
@@ -98,43 +96,45 @@ export class UserManagementComponent implements OnInit {
         if (user) {
             user.isBanned = !isBanned;
         }
-        this.errorMessage = '';
+        this.toastrService.success(response.message, 'Success');
       },
-      error: (err) => {
-        this.errorMessage = err.error.message;
+      error: (error) => {
+        this.toastrService.error(error.error.message, 'Error');
       }
     });
   }
 
   deleteUser(id: string): void {
     this.userService.deleteUser(id).subscribe({
-      next: () => {
+      next: (response) => {
         this.onUserDeleted(id);
-        this.errorMessage = '';
+        this.toastrService.success(response.message, 'Success');
        },
-      error: (err) => {
-        this.errorMessage = err.error.message;
+      error: (error) => {
+        this.toastrService.error(error.error.message, 'Error');
       }
     });
   }
   
   copyFullId(id: string): void {
-    navigator.clipboard.writeText(id).catch((err) => {
-      console.error('Failed to copy ID:', err);
+    navigator.clipboard.writeText(id).then(() => {
+      this.toastrService.info('User ID copied to clipboard.', 'Info');
+    }).catch((error) => {
+      this.toastrService.error(error.error.message, 'Error');
     });
   }
 
   previousPage(): void {
     if (this.currentPage > 1) {
-        this.currentPage--;
-        this.loadUsers();
+      this.currentPage--;
+      this.loadUsers();
     }
   } 
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
-        this.currentPage++;
-        this.loadUsers();
+      this.currentPage++;
+      this.loadUsers();
     }
   }
 
