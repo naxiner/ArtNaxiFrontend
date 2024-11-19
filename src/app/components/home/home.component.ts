@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ImageGeneratorService } from '../../services/image-generator.service';
 import { ModalService } from '../../services/modal.service';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 import { Image } from '../../../models/image';
 import { environment } from '../../../environments/environment';
 
@@ -28,8 +29,9 @@ export class HomeComponent implements OnInit {
   constructor (
     private sdService: ImageGeneratorService,
     private modalService: ModalService,
-    private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastrService: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -55,8 +57,8 @@ export class HomeComponent implements OnInit {
         this.currentImagesPage++;
         this.isLoadingImages = false;
       },
-      error: (err) => {
-        console.log(err.error);
+      error: (error) => {
+        this.toastrService.error(error.error.message, 'Error');
         this.isLoadingImages = false;
       }
     });

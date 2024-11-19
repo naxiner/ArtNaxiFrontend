@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ImageGeneratorService } from '../../services/image-generator.service';
 import { ModalService } from '../../services/modal.service';
+import { ToastrService } from 'ngx-toastr';
 import { Image } from '../../../models/image';
 import { environment } from '../../../environments/environment';
 
@@ -26,6 +27,7 @@ export class ImageModalComponent {
   constructor(
     private imageGeneratorService: ImageGeneratorService,
     private modalService: ModalService,
+    private toastrService: ToastrService,
     private router: Router
   ) {}
 
@@ -50,39 +52,42 @@ export class ImageModalComponent {
         this.imageDeleted.emit(id);
         this.modalService.notifyImageDeleted(id);
         this.close();
+        this.toastrService.success('Image successfully deleted.', 'Success');
       },
       (error) => {
-        console.error('Error deleting image', error);
+        this.toastrService.error(error.error, 'Error');
       }
     );
   }
 
   makePublic(id: string): void {
     this.imageGeneratorService.makeImagePublic(id).subscribe(
-      (response) => { 
+      () => { 
         if (this.image) {
           this.image.isPublic = true;
         }
         this.visibilityChanged.emit(id);
         this.modalService.notifyVisibilityChanged(id);
+        this.toastrService.success('Image has been published.', 'Success');
       },
       (error) => {
-        console.error('Error occurred while trying to make the image public', error);
+        this.toastrService.error(error.error.message, 'Error');
       }
     );
   }
 
   makePrivate(id: string): void {
     this.imageGeneratorService.makeImagePrivate(id).subscribe(
-      (response) => { 
+      () => { 
         if (this.image) {
           this.image.isPublic = false;
         }
         this.visibilityChanged.emit(id);
         this.modalService.notifyVisibilityChanged(id);
+        this.toastrService.success('Image has been hidden.', 'Success');
       },
       (error) => {
-        console.error('Error occurred while trying to make the image private', error);
+        this.toastrService.error(error.error.message, 'Error');
       }
     );
   }
