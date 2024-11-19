@@ -8,6 +8,7 @@ import { AuthService } from '../../services/auth.service';
 import { UserProfileService } from '../../services/user-profile.service';
 import { UserDataService } from '../../services/user-data.service';
 import { environment } from '../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-profile',
@@ -24,15 +25,13 @@ export class UserProfileComponent implements OnInit{
   isAllowToDelete = false;
   isAllowToEdit = false;
   isEditingProfile = false;
-
-  errorMessage: string = "";
-
   publicImageCount = 0;
 
   constructor (
     private authService: AuthService,
     private userProfileService: UserProfileService,
     private userDataService: UserDataService,
+    private toastrService: ToastrService,
     private route: ActivatedRoute
   ) {
     this.userDataService.username$.subscribe(username => {
@@ -73,7 +72,7 @@ export class UserProfileComponent implements OnInit{
         this.user = response.userProfileDto;
       },
       (error) => {
-        console.error('Error loading user profile', error);
+        this.toastrService.error(error.error.message ,'Error');
       }
     );
   }
@@ -84,7 +83,7 @@ export class UserProfileComponent implements OnInit{
         this.publicImageCount = response.publicImageCount;
       },
       (error) => {
-        console.error(error);
+        this.toastrService.error(error.error.message ,'Error');
       }
     )
   }

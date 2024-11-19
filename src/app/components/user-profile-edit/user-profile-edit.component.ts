@@ -6,6 +6,7 @@ import { EditUserRequest } from '../../../models/edit-user-request';
 import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
 import { UserDataService } from '../../services/user-data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-profile-edit',
@@ -21,8 +22,6 @@ export class UserProfileEditComponent implements OnInit {
   @Output() profileUpdated = new EventEmitter<any>();
   @Output() cancelEdit = new EventEmitter<void>();
 
-  errorMessage: string = "";
-
   editUserRequest: EditUserRequest = {
     username: '',
     email: '',
@@ -35,7 +34,8 @@ export class UserProfileEditComponent implements OnInit {
   constructor(
     private userService: UserService, 
     private userProfileService: UserProfileService,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -47,17 +47,16 @@ export class UserProfileEditComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        this.errorMessage = 'File size should not exceed 5MB.';
+        this.toastrService.error('File size should not exceed 5MB.', 'Error');
         return;
       }
 
       if (!file.type.match(/image\/(jpeg|png)/)) {
-        this.errorMessage = 'Only image files (JPEG, PNG) are allowed.';
+        this.toastrService.error('Only image files (JPEG, PNG) are allowed.', 'Error');
         return;
       }
 
       this.selectedFile = file;
-      this.errorMessage = '';
       const reader = new FileReader();
       reader.onload = () => {
         this.avatarPreview = reader.result as string;
@@ -77,10 +76,10 @@ export class UserProfileEditComponent implements OnInit {
           this.profileUpdated.emit(this.user);
           this.avatarPreview = '';
           this.selectedFile = null;
+          this.toastrService.success(response.message, 'Success');
         },
         error: (error) => {
-          console.error('Error uploading profile image', error);
-          this.errorMessage = 'Error uploading profile image.';
+          this.toastrService.error(error.error.message, 'Error');
         }
       });
     }
@@ -88,29 +87,29 @@ export class UserProfileEditComponent implements OnInit {
 
   onEditSubmit(): void {
     this.userService.editUser(this.userId, this.editUserRequest).subscribe({
-      next: () => {
+      next: (response) => {
         this.userDataService.setUsername(this.editUserRequest.username);
         this.userDataService.setEmail(this.editUserRequest.email);
         this.profileUpdated.emit(this.user);
-        this.errorMessage = '';
+        this.toastrService.success(response.message, 'Success');
       },
       error: (error) => {
-        this.errorMessage = error.error?.message || 'Error updating profile.';
+        this.toastrService.error(error.error.message, 'Error');
       }
     });
   }
 
   onDelete(): void {
     this.userProfileService.deleteUserAvatar(this.userId).subscribe({
-      next: () => {
+      next: (response) => {
         const defaultAvatarUrl = '/default-avatar-512.png';
         this.userDataService.setAvatarUrl(defaultAvatarUrl);
         this.avatarPreview = '';
         this.profileUpdated.emit(this.user);
-        this.errorMessage = '';
+        this.toastrService.success(response.message, 'Success');
       },
       error: (error) => {
-        this.errorMessage = error.error?.message || 'Error deleting profile image.';
+        this.toastrService.error(error.error.message, 'Error');
       }
     });
   }

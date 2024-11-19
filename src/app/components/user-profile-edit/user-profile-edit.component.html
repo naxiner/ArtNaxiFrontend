@@ -1,7 +1,4 @@
 <div class="row">
-  <div class="alert alert-danger text-center" *ngIf="errorMessage">
-    {{ errorMessage }}
-  </div>
   <div class="col">
     <form (ngSubmit)="onAddProfileImage()" #addProfileImageForm="ngForm" class="mb-3 border rounded-4 p-4">
       <div *ngIf="avatarPreview" class="text-center mb-3">

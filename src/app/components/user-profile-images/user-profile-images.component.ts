@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ImageGeneratorService } from '../../services/image-generator.service';
 import { ModalService } from '../../services/modal.service';
+import { ToastrService } from 'ngx-toastr';
 import { Image } from '../../../models/image';
 import { environment } from '../../../environments/environment';
 
@@ -28,7 +29,8 @@ export class UserProfileImagesComponent implements OnInit {
 
   constructor(
     private imageGeneratorService: ImageGeneratorService, 
-    private modalService: ModalService
+    private modalService: ModalService,
+    private toastrService: ToastrService
   ) {
     this.modalService.imageDeleted$.subscribe(imageId => {
       this.onImageDeleted(imageId);
@@ -56,7 +58,7 @@ export class UserProfileImagesComponent implements OnInit {
         this.totalPages = response.totalPages;
       },
       (error) => {
-        console.error('Error loading user images', error);
+        this.toastrService.error(error.error.message, 'Error');
       }
     );
   }
