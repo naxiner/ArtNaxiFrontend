@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { RegisterDTO } from '../../../models/register';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,7 @@ import { RegisterDTO } from '../../../models/register';
 export class RegisterComponent {
   constructor(
     private authService: AuthService,
+    private toastrService: ToastrService,
     private router: Router
   ) {}
 
@@ -31,15 +33,14 @@ export class RegisterComponent {
       next: () => {
         this.router.navigate(['/']);
       },
-      error: (err) => {
-        console.error(err);
-        if (err.error.errors) {
-          const validationErrors = err.error.errors;
+      error: (error) => {
+        if (error.error.errors) {
+          const validationErrors = error.error.errors;
           if (validationErrors.Password) {
-            this.errorMessage = validationErrors.Password.join(', ');
+            this.toastrService.error(validationErrors.Password.join(', '));
           }
         } else {
-          this.errorMessage = `Error: ${err.error.message}`;
+          this.toastrService.error(`Error: ${error.error.message}`);
         }
       }
     });

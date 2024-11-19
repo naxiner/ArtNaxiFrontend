@@ -1,9 +1,6 @@
 <h2 class="text-center my-5">Registration</h2>
 
 <div class="w-50 mb-5 mx-auto">
-  <div class="alert alert-danger text-center" *ngIf="errorMessage != ''">
-    {{errorMessage}}
-  </div>
   <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="border rounded p-4">
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
