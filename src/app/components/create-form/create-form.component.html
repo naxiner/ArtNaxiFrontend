@@ -16,7 +16,7 @@
             <div class="col">
                 <div class="mb-3">
                     <label for="styleSelect" class="form-label">Select Style</label>
-                    <select id="styleSelect" [(ngModel)]="sdRequest.styles" name="styles" class="form-select">
+                    <select id="styleSelect" multiple size="3" [(ngModel)]="sdRequest.styles" name="styles" class="form-select">
                         <option *ngFor="let style of styles" [value]="style.name">{{ style.name }}</option>
                     </select>
                 </div>
