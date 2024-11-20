@@ -83,6 +83,12 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <div class="me-auto">
+                    <button type="button" class="btn btn-outline-danger" (click)="toggleLike()">
+                        <i class="bi" [ngClass]="isLiked ? 'bi-heart-fill' : 'bi-heart'"></i> 
+                        {{ likeCount }}
+                    </button>
+                </div>
                 <a [href]="baseUrl + image?.url" download="generated_image.jpg" class="btn btn-success">
                     <i class="bi bi-download"></i>
                 </a>
