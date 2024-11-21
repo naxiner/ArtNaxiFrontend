@@ -18,7 +18,20 @@
     </div>
     <div class="mb-3">
         <div class="mt-4">
-            <p class="mb-3 fs-5 fw-semibold">Recent</p>
+            <div class="mb-3">
+                <button 
+                    class="btn btn-link p-0 text-dark fs-5 fw-semibold text-decoration-none me-3"
+                    [class.active]="currentMode === 'recent'" 
+                    (click)="setMode('recent')">
+                    Recent
+                </button>
+                <button 
+                    class="btn btn-link p-0 text-dark fs-5 fw-semibold text-decoration-none"
+                    [class.active]="currentMode === 'popular'" 
+                    (click)="setMode('popular')">
+                    Popular
+                </button>
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col" *ngFor="let column of columns">

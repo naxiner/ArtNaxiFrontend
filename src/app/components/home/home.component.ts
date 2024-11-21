@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   currentImagesPage = 1;
   isLoadingImages = false;
   inputGenerateText: string = '';
+  currentMode: 'recent' | 'popular' = 'recent';
 
   constructor (
     private sdService: ImageGeneratorService,
@@ -46,22 +47,42 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  setMode(mode: 'recent' | 'popular'): void {
+    if (this.currentMode !== mode) {
+      this.generatedImages = [];
+      this.currentMode = mode;
+      this.currentImagesPage = 1;
+      this.loadImages();
+    }
+  }
+
   loadImages(): void {
     if (this.isLoadingImages) return;
     this.isLoadingImages = true;
+    let fetchImages$;
 
-    this.sdService.getRecentPublicImages(this.currentImagesPage, this.imagesPerPage).subscribe({
-      next: (response) => {
-        this.generatedImages.push(...response.recentImages);
-        this.organizeImages();
-        this.currentImagesPage++;
-        this.isLoadingImages = false;
-      },
-      error: (error) => {
-        this.toastrService.error(error.error.message, 'Error');
-        this.isLoadingImages = false;
-      }
-    });
+    if (this.currentMode === 'recent') {
+      fetchImages$ = this.sdService.getRecentPublicImages(this.currentImagesPage, this.imagesPerPage);
+    } else if (this.currentMode === 'popular') {
+      fetchImages$ = this.sdService.getPopularPublicImages(this.currentImagesPage, this.imagesPerPage);
+    }
+
+    if (fetchImages$) {
+      this.isLoadingImages = true;
+      fetchImages$.subscribe({
+        next: (response) => {
+          const images = this.currentMode === 'recent' ? response.recentImages : response.popularImages;
+          this.generatedImages.push(...images);
+          this.organizeImages();
+          this.currentImagesPage++;
+          this.isLoadingImages = false;
+        },
+        error: (error) => {
+          this.toastrService.error(error.error.message, 'Error');
+          this.isLoadingImages = false;
+        }
+      });
+    }
   }
 
   organizeImages(): void {
