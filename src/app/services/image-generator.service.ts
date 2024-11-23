@@ -35,15 +35,11 @@ export class ImageGeneratorService {
   }
 
   getImagesByUserId(userId: string, pageNumber: number, pageSize: number) {
-    return this.http.get<{ userImages: Image[], totalPages: number }>(
-        `${this.apiUrl}/user/${userId}?pageNumber=${pageNumber}&pageSize=${pageSize}`
-    );
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
   getPublicImagesByUserId(userId: string, pageNumber: number, pageSize: number) {
-    return this.http.get<{ userImages: Image[], totalPages: number }>(
-        `${this.apiUrl}/user/${userId}/public?pageNumber=${pageNumber}&pageSize=${pageSize}`
-    );
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}/public?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
   generateImage(request: SDRequest): Observable<SDResponse> {

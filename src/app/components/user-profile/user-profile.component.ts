@@ -80,7 +80,7 @@ export class UserProfileComponent implements OnInit{
   getPublicImageCount(id: string): void {
     this.userProfileService.getPublicImageCount(id).subscribe(
       (response) => {
-        this.publicImageCount = response.publicImageCount;
+        this.publicImageCount = response.count;
       },
       (error) => {
         this.toastrService.error(error.error.message ,'Error');

@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
       this.isLoadingImages = true;
       fetchImages$.subscribe({
         next: (response) => {
-          const images = this.currentMode === 'recent' ? response.recentImages : response.popularImages;
+          const images = response.images;
           this.generatedImages.push(...images);
           this.organizeImages();
           this.currentImagesPage++;

@@ -142,7 +142,7 @@ export class ImageModalComponent implements OnInit{
 
     this.likeService.getLikeCount(this.image.id).subscribe(
       (response) => { 
-        this.likeCount = response.likeCount;
+        this.likeCount = response.count;
       },
       (error) => {
         this.toastrService.error(error.error, 'Error');

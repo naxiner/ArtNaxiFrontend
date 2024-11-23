@@ -72,7 +72,7 @@ export class UserProfileEditComponent implements OnInit {
 
       this.userProfileService.updateProfileAvatar(this.userId, formData).subscribe({
         next: (response) => {
-          this.userDataService.setAvatarUrl(response.profilePictureUrl);
+          this.userDataService.setAvatarUrl(response.avatarUrl);
           this.profileUpdated.emit(this.user);
           this.avatarPreview = '';
           this.selectedFile = null;

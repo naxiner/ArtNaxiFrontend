@@ -53,8 +53,8 @@ export class UserProfileImagesComponent implements OnInit {
       : this.imageGeneratorService.getImagesByUserId(this.userId, this.pageNumber, this.pageSize);
   
     fetchImages.subscribe(
-      (response: { userImages: Image[], totalPages: number }) => {
-        this.userImages = response.userImages;
+      (response: { images: Image[], totalPages: number }) => {
+        this.userImages = response.images;
         this.totalPages = response.totalPages;
       },
       (error) => {
@@ -62,6 +62,7 @@ export class UserProfileImagesComponent implements OnInit {
       }
     );
   }
+  
 
   showImageModal(image: Image): void {
     this.modalService.openModal(image, this.isAllowToDelete);
