@@ -1,11 +1,5 @@
-import { SDRequest } from "./sd-request";
+import { Image } from "./image";
 
 export interface SDResponse {
-    id: string,
-    url: string,
-    creationTime: Date,
-    createdBy: string,
-    userId: string,
-    request: SDRequest,
-    isPublic: boolean
+    image: Image
 }

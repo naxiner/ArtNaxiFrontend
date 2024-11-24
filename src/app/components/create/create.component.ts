@@ -24,6 +24,8 @@ export class CreateComponent {
   }
 
   onImageGenerated() {
-    this.createImagesComponent.scrollToStart();
+    if (this.generatedImages.length > 1) {
+      this.createImagesComponent.scrollToStart();
+    }
   }
 }

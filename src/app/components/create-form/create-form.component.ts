@@ -74,14 +74,15 @@ export class CreateFormComponent implements OnInit {
     
     this.sdService.generateImage(this.sdRequest).subscribe({
       next: (response) => {
+        const image = response.image;
         this.generatedImages.unshift({
-          id: response.id,
-          url: response.url,
-          creationTime: response.creationTime,
-          createdBy: response.createdBy,
-          userId: response.userId,
-          request: response.request,
-          isPublic: response.isPublic
+          id: image.id,
+          url: image.url,
+          creationTime: image.creationTime,
+          createdBy: image.createdBy,
+          userId: image.userId,
+          request: image.request,
+          isPublic: image.isPublic
         });
 
         this.imageGenerated.emit();
