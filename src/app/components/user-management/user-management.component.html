@@ -51,6 +51,10 @@
                             <i *ngIf="!user.isBanned" class="bi bi-ban"></i>
                             {{ user.isBanned ? 'Unban' : 'Ban' }}
                         </button>
+                        <button [swal]="{ title: 'Confirmation', text: 'Are you sure you want to delete avatar for this user?',
+                            showCancelButton: true }" (confirm)="deleteUserAvatar(user.id)" class="btn btn-sm me-3 btn-danger">
+                            <i class="bi bi-person-bounding-box"></i>Delete Avatar
+                        </button>
                         <button [routerLink]="['/profile', user.id]" class="btn btn-sm btn-primary me-3">
                             <i class="bi bi-person-circle"></i>Profile
                         </button>

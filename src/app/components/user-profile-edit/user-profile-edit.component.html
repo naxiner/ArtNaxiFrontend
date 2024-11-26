@@ -14,7 +14,7 @@
         <div class="d-flex">
           <button type="button" class="btn btn-danger"
             [swal]="{ title: 'Confirmation', text: 'Are you sure you want to delete profile image?',
-            showCancelButton: true }" (confirm)="onDelete()">Delete Profile Image</button>
+            showCancelButton: true }" (confirm)="onDeleteProfileImage()">Delete Profile Image</button>
           <button type="submit" [disabled]="!selectedFile" class="btn btn-success ms-auto"
             [swal]="{ title: 'Confirmation', text: 'Are you sure you want to save profile image?',
             showCancelButton: true }" (confirm)="onAddProfileImage()">Save Profile Image</button>

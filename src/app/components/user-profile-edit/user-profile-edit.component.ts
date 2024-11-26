@@ -7,6 +7,7 @@ import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
 import { UserDataService } from '../../services/user-data.service';
 import { ToastrService } from 'ngx-toastr';
+import { DefaultAvatar } from '../../../constants/default-avatar-url';
 
 @Component({
   selector: 'app-user-profile-edit',
@@ -99,11 +100,10 @@ export class UserProfileEditComponent implements OnInit {
     });
   }
 
-  onDelete(): void {
+  onDeleteProfileImage(): void {
     this.userProfileService.deleteUserAvatar(this.userId).subscribe({
       next: (response) => {
-        const defaultAvatarUrl = '/default-avatar-512.png';
-        this.userDataService.setAvatarUrl(defaultAvatarUrl);
+        this.userDataService.setAvatarUrl(DefaultAvatar.DefaultAvatarUrl);
         this.avatarPreview = '';
         this.profileUpdated.emit(this.user);
         this.toastrService.success(response.message, 'Success');

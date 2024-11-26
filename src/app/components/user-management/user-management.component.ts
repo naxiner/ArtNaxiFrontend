@@ -104,6 +104,17 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
+  deleteUserAvatar(id: string): void {
+    this.userProfileService.deleteUserAvatar(id).subscribe({
+      next: (response) => {
+        this.toastrService.success(response.message, 'Success');
+       },
+      error: (error) => {
+        this.toastrService.error(error.error.message, 'Error');
+      }
+    });
+  }
+
   deleteUser(id: string): void {
     this.userService.deleteUser(id).subscribe({
       next: (response) => {
