@@ -48,7 +48,7 @@ export class UserManagementComponent implements OnInit {
         this.users.forEach(user => {
           this.userProfileService.getAllImageCount(user.id).subscribe({
               next: (count) => {
-                this.imageCounts.set(user.id, count.allImageCount);
+                this.imageCounts.set(user.id, count.count);
               },
               error: (error) => {
                 this.imageCounts.set(user.id, 0);
