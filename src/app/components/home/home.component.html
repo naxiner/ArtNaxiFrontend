@@ -18,7 +18,12 @@
     </div>
     <div class="mb-3">
         <div class="mt-4">
-            <div class="mb-3">
+            <div *ngIf="generatedImages.length === 0">
+                <div class="text-center">
+                    <h1>No images</h1>
+                </div>
+            </div>
+            <div *ngIf="generatedImages.length" class="mb-3">
                 <button 
                     class="btn btn-link p-0 text-dark fs-5 fw-semibold text-decoration-none me-3"
                     [class.active]="currentMode === 'recent'" 
