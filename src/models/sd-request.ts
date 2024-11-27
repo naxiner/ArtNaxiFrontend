@@ -1,9 +1,9 @@
 export interface SDRequest {
     prompt: string;
-    negative_prompt?: string;
+    negativePrompt?: string;
     styles?: string[];
     seed: number;
-    sampler_name: string;
+    samplerName: string;
     scheduler: string;
     steps: number;
     cfg_scale: number;

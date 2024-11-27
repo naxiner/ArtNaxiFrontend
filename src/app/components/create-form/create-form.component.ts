@@ -23,10 +23,10 @@ export class CreateFormComponent implements OnInit {
 
   sdRequest: SDRequest = {
     prompt: '',
-    negative_prompt: '',
+    negativePrompt: '',
     styles: [],
     seed: -1,
-    sampler_name: 'DPM++ SDE',
+    samplerName: 'DPM++ SDE',
     scheduler: 'Karras',
     steps: 7,
     cfg_scale: 2,
