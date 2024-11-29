@@ -1,27 +1,53 @@
-# ArtNaxiFrontend
+# ArtNaxi Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.1.
+Frontend application for ArtNaxi API, built with Angular.
 
-## Development server
+## Features
+- User registration and login
+- User profile management
+- Image generation interface
+- Image liking system
+- Responsive design with Bootstrap
+- Toastr and sweetalerts2
+- Integration with ArtNaxi API
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Requirements
 
-## Code scaffolding
+- [Node.js](https://nodejs.org/en/download/package-manager) (version 18.x or later)
+- [Angular CLI](https://www.npmjs.com/package/@angular/cli)
+- [ArtNaxi API](https://github.com/naxiner/ArtNaxiApi) (Backend API)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installing
 
-## Build
+**1. Clone repository:**
+```bash
+git clone https://github.com/naxiner/ArtNaxiFrontend.git
+cd ArtNaxiFrontend
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+**2. Install dependencies:**
+```bash
+npm install
+```
 
-## Running unit tests
+**3. Configure environment:**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Configure `src/environments/environment.ts` file with correct API URLs.
 
-## Running end-to-end tests
+```bash
+export const environment = {
+    isProduction: false,
+    baseUrl: 'https://localhost:7069',
+    apiUrl: 'https://localhost:7069/api'
+}
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+**4. Start**
 
-## Further help
+Start with SSL certificate
+```bash
+ng serve --ssl --ssl-cert "certificates/ssl/localhost.crt" --ssl-key "certificates/ssl/localhost.key"
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Application will be available at: 
+- https://localhost:4200
