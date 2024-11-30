@@ -129,4 +129,12 @@ export class CreateFormComponent implements OnInit {
       this.toastrService.error('Seed may not be larger than: 2147483647', 'Error');
     }
   }
+
+  validateImageSize(): void {
+    if (this.sdRequest.width  < 512 || this.sdRequest.height < 512) {
+      this.toastrService.error('Image may not be smaller than: 512x512', 'Error');
+    } else if (this.sdRequest.width  > 1024 || this.sdRequest.height > 1024) {
+      this.toastrService.error('Image may not be larger than: 1024x1024', 'Error');
+    }
+  }
 }

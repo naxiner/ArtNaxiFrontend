@@ -24,7 +24,7 @@
                 <div class="mb-3 row text-center">
                     <div class="col">
                         <label for="width" class="form-label">Width</label>
-                        <input type="number" required class="form-control" [(ngModel)]="sdRequest.width" name="width" id="width" placeholder="Enter width">
+                        <input type="number" required class="form-control" [(ngModel)]="sdRequest.width" min="512" max="1024" (input)="validateImageSize()" name="width" id="width" placeholder="Enter width">
                     </div>
 
                     <div class="col-3">
@@ -36,7 +36,7 @@
 
                     <div class="col">
                         <label for="height" class="form-label">Height</label>
-                        <input type="number" required class="form-control" [(ngModel)]="sdRequest.height" name="height" id="height" placeholder="Enter height">
+                        <input type="number" required class="form-control" [(ngModel)]="sdRequest.height" min="512" max="1024" (input)="validateImageSize()" name="height" id="height" placeholder="Enter height">
                     </div>
                 </div>
             </div>
