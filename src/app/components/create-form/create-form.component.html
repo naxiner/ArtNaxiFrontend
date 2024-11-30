@@ -4,7 +4,7 @@
             <div class="col">
                 <div class="mb-3">
                     <label for="promptTextarea" class="form-label">Prompt</label>
-                    <textarea class="form-control" [(ngModel)]="sdRequest.prompt" name="prompt" id="promptTextarea" rows="2"></textarea>
+                    <textarea class="form-control" required [(ngModel)]="sdRequest.prompt" name="prompt" id="promptTextarea" rows="2"></textarea>
                 </div>
         
                 <div class="mb-3">
@@ -24,7 +24,7 @@
                 <div class="mb-3 row text-center">
                     <div class="col">
                         <label for="width" class="form-label">Width</label>
-                        <input type="number" class="form-control" [(ngModel)]="sdRequest.width" name="width" id="width" placeholder="Enter width">
+                        <input type="number" required class="form-control" [(ngModel)]="sdRequest.width" name="width" id="width" placeholder="Enter width">
                     </div>
 
                     <div class="col-3">
@@ -36,7 +36,7 @@
 
                     <div class="col">
                         <label for="height" class="form-label">Height</label>
-                        <input type="number" class="form-control" [(ngModel)]="sdRequest.height" name="height" id="height" placeholder="Enter height">
+                        <input type="number" required class="form-control" [(ngModel)]="sdRequest.height" name="height" id="height" placeholder="Enter height">
                     </div>
                 </div>
             </div>
@@ -54,11 +54,11 @@
                             <div class="mb-3 row">
                                 <div class="col">
                                     <label for="steps" class="form-label">Steps</label>
-                                    <input type="number" class="form-control" [(ngModel)]="sdRequest.steps" name="steps" id="steps" placeholder="Enter steps">
+                                    <input type="number" required class="form-control" [(ngModel)]="sdRequest.steps" name="steps" id="steps" placeholder="Enter steps">
                                 </div>
                                 <div class="col">
                                     <label for="cfgScale" class="form-label">CFG Scale</label>
-                                    <input type="number" class="form-control" [(ngModel)]="sdRequest.cfg_scale" name="cfgScale" id="cfgScale" placeholder="Enter CFG">
+                                    <input type="number" required class="form-control" [(ngModel)]="sdRequest.cfg_scale" name="cfgScale" id="cfgScale" placeholder="Enter CFG">
                                 </div>
                                 <div class="col">
                                     <label for="seed" class="form-label">Seed</label>
