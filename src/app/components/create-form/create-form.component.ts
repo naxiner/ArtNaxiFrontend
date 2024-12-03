@@ -8,6 +8,7 @@ import { Image } from '../../../models/image';
 import { StyleService } from '../../services/style.service';
 import { Style } from '../../../models/style';
 import { ToastrService } from 'ngx-toastr';
+import { SDRequestDto } from '../../../models/sd-request-dto';
 
 @Component({
   selector: 'app-create-form',
@@ -23,15 +24,28 @@ export class CreateFormComponent implements OnInit {
 
   sdRequest: SDRequest = {
     prompt: '',
-    negative_prompt: '',
+    negativePrompt: '',
     styles: [],
     seed: -1,
-    sampler_name: 'DPM++ SDE',
+    samplerName: 'DPM++ SDE',
     scheduler: 'Karras',
     steps: 7,
-    cfg_scale: 2,
+    cfgScale: 2,
     width: 512,
     height: 512
+  }
+
+  sdRequestDto: SDRequestDto = {
+    prompt: this.sdRequest.prompt,
+    negative_prompt: this.sdRequest.negativePrompt,
+    styles: this.sdRequest.styles,
+    seed: this.sdRequest.seed,
+    sampler_name: this.sdRequest.samplerName,
+    scheduler: this.sdRequest.scheduler,
+    steps: this.sdRequest.steps,
+    cfg_scale: this.sdRequest.cfgScale,
+    width: this.sdRequest.width,
+    height: this.sdRequest.height
   }
 
   styles: Style[] = [];
@@ -71,8 +85,10 @@ export class CreateFormComponent implements OnInit {
     if (!Array.isArray(this.sdRequest.styles)) {
       this.sdRequest.styles = [this.sdRequest.styles];
     }
+
+    this.mapRequestToDto();
     
-    this.sdService.generateImage(this.sdRequest).subscribe({
+    this.sdService.generateImage(this.sdRequestDto).subscribe({
       next: (response) => {
         const image = response.image;
         this.generatedImages.unshift({
@@ -136,5 +152,21 @@ export class CreateFormComponent implements OnInit {
     } else if (this.sdRequest.width  > 1024 || this.sdRequest.height > 1024) {
       this.toastrService.error('Image may not be larger than: 1024x1024', 'Error');
     }
+  }
+
+  private mapRequestToDto(): void {
+    const { prompt, negativePrompt, styles, seed, samplerName, scheduler, steps, cfgScale, width, height } = this.sdRequest;
+    this.sdRequestDto = {
+      prompt,
+      negative_prompt: negativePrompt,
+      styles,
+      seed,
+      sampler_name: samplerName,
+      scheduler,
+      steps,
+      cfg_scale: cfgScale,
+      width,
+      height
+    };
   }
 }

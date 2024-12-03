@@ -9,7 +9,7 @@
         
                 <div class="mb-3">
                     <label for="negativePromptTextarea" class="form-label">Negative Prompt</label>
-                    <textarea class="form-control" [(ngModel)]="sdRequest.negative_prompt" name="negativePrompt" id="negativePromptTextarea" rows="1"></textarea>
+                    <textarea class="form-control" [(ngModel)]="sdRequest.negativePrompt" name="negativePrompt" id="negativePromptTextarea" rows="1"></textarea>
                 </div>
             </div>
             
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="cfgScale" class="form-label">CFG Scale</label>
-                                    <input type="number" required class="form-control" [(ngModel)]="sdRequest.cfg_scale" name="cfgScale" id="cfgScale" placeholder="Enter CFG">
+                                    <input type="number" required class="form-control" [(ngModel)]="sdRequest.cfgScale" name="cfgScale" id="cfgScale" placeholder="Enter CFG">
                                 </div>
                                 <div class="col">
                                     <label for="seed" class="form-label">Seed</label>
@@ -69,7 +69,7 @@
                             
                             <div class="mb-3">
                                 <label for="samplerSelect" class="form-label">Select Sampler</label>
-                                <select id="samplerSelect" [(ngModel)]="sdRequest.sampler_name" name="samplerName" class="form-select">
+                                <select id="samplerSelect" [(ngModel)]="sdRequest.samplerName" name="samplerName" class="form-select">
                                     <option value="DPM++ SDE">DPM++ SDE</option>
                                 </select>
                             </div>

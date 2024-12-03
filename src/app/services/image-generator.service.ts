@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Image } from '../../models/image';
-import { SDRequest } from '../../models/sd-request';
+import { SDRequestDto } from '../../models/sd-request-dto';
 import { SDResponse } from '../../models/sd-response';
 import { environment } from '../../environments/environment';
 
@@ -42,7 +41,7 @@ export class ImageGeneratorService {
     return this.http.get<any>(`${this.apiUrl}/user/${userId}/public?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
-  generateImage(request: SDRequest): Observable<SDResponse> {
+  generateImage(request: SDRequestDto): Observable<SDResponse> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
