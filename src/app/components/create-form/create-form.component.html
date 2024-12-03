@@ -9,7 +9,7 @@
         
                 <div class="mb-3">
                     <label for="negativePromptTextarea" class="form-label">Negative Prompt</label>
-                    <textarea class="form-control" [(ngModel)]="sdRequest.negativePrompt" name="negativePrompt" id="negativePromptTextarea" rows="1"></textarea>
+                    <textarea class="form-control" [(ngModel)]="sdRequest.negative_prompt" name="negativePrompt" id="negativePromptTextarea" rows="1"></textarea>
                 </div>
             </div>
             
@@ -69,7 +69,7 @@
                             
                             <div class="mb-3">
                                 <label for="samplerSelect" class="form-label">Select Sampler</label>
-                                <select id="samplerSelect" [(ngModel)]="sdRequest.samplerName" name="samplerName" class="form-select">
+                                <select id="samplerSelect" [(ngModel)]="sdRequest.sampler_name" name="samplerName" class="form-select">
                                     <option value="DPM++ SDE">DPM++ SDE</option>
                                 </select>
                             </div>
